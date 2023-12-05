@@ -1,0 +1,122 @@
+[
+    {
+        "user": {
+            "name": "Chủ nhà 1",
+            "note": ""
+        },
+        "location": {
+            "detail": "7 Hòa Mã",
+            "lat": "21.0154722",
+            "lon": "105.855"
+            
+        }
+    },
+    {
+        "user": {
+            "name": "Chủ nhà 2",
+            "note": ""
+        },
+        "location": {
+            "detail": "178 Phố Huế",
+            "lat": "21.014599",
+            "lon": "105.851642"
+            
+        }
+    },
+    {
+        "user": {
+            "name": "Chủ nhà 3",
+            "note": ""
+        },
+        "location": {
+            "detail": "2 Trần Thánh Tông",
+            "lat": "21.015922",
+            "lon": "105.859339"
+            
+        }
+    },
+    {
+        "user": {
+            "name": "Chủ nhà 4",
+            "note": ""
+        },
+        "location": {
+            "detail": "22 Lò Đúc",
+            "lat": "21.017581",
+            "lon": "105.855529"
+            
+        }
+    },
+    {
+        "user": {
+            "name": "Chủ nhà 5",
+            "note": ""
+        },
+        "location": {
+            "detail": "378 Lê Duẩn",
+            "lat": "21.009929716805722",
+            "lon": "105.84106206806747"
+            
+        }
+    },
+    {
+        "user": {
+            "name": "Chủ nhà 6",
+            "note": ""
+        },
+        "location": {
+            "detail": "378 Lê Duẩn",
+            "lat": "21.009929716805722",
+            "lon": "105.84106206806747"
+            
+        }
+    },
+    {
+        "user": {
+            "name": "Chủ nhà 7",
+            "note": ""
+        },
+        "location": {
+            "detail": "153 Bà Triệu",
+            "lat": "21.014211855697347",
+            "lon": "105.84902786667328"
+            
+        }
+    },
+    {
+        "user": {
+            "name": "Chủ nhà 8",
+            "note": ""
+        },
+        "location": {
+            "detail": "128 Tân Mai",
+            "lat": "20.983579",
+            "lon": "105.849482"
+            
+        }
+    },
+    {
+        "user": {
+            "name": "Chủ nhà 9",
+            "note": ""
+        },
+        "location": {
+            "detail": "709 Giải Phóng",
+            "lat": "20.988025",
+            "lon": "105.841313"
+            
+        }
+    },
+    {
+        "user": {
+            "name": "Chủ nhà 10",
+            "note": ""
+        },
+        "location": {
+            "detail": "180 Trường Chinh",
+            "lat": "21.000263",
+            "lon": "105.832091"
+            
+        }
+    }
+]
