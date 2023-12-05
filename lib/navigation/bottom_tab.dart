@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:grab_dek_demo/screens/host_screen.dart';
 
 
 class BottomTab extends StatefulWidget {
   const BottomTab({super.key});
 
   @override
-  _BottomTabState createState() => _BottomTabState();
+  State<BottomTab> createState() => _BottomTabState();
 }
 
 class _BottomTabState extends State<BottomTab> {
   int _currentIndex = 0;
 
   final List<Widget> _tabs = [
-    // Đặt các màn hình hoặc nội dung tương ứng với mỗi tab ở đây
-    // Ví dụ:
-    Container(
-      child: const Center(
-        child: Text('Tab 1'),
-      ),
-    ),
+    
+    const HostScreen(),
     Container(
       child: const Center(
         child: Text('Tab 2'),
