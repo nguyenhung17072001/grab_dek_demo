@@ -5,7 +5,8 @@
     <application
         android:label="grab_dek_demo"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -24,7 +25,7 @@
             />
             <meta-data 
                 android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyDlYJoaZbbJIkTvK8tsSV5LqOOg-Ht13TI"
+                android:value="AIzaSyA9gSz9RuHWnEFkqF5I4yELNjqfTkE4_vE"
             />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
