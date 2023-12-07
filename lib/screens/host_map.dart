@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:grab_dek_demo/models/worker.dart';
+import 'package:grab_dek_demo/widget/worker_details_modal.dart';
 import 'package:marker_icon/marker_icon.dart';
 
 class HostMap extends StatefulWidget {
@@ -179,6 +180,17 @@ void _animateRadar() {
           title: worker['name'],
           snippet: "Worker's details here", // You can add worker-specific information here
         ),
+        onTap: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (BuildContext context) {
+              return WorkerDetailsModal(
+                name: worker['name'],
+                snippet: "Các thông tin, thông số của thợ", // Thay đổi thành thông tin thực tế của Worker
+              );
+            },
+          );
+        },
       ),
     );
   }
