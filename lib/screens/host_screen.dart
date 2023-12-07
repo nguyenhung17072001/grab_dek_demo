@@ -17,7 +17,9 @@ class HostScreen extends StatefulWidget {
 class _HostScreenState extends State<HostScreen> {
   final myController = TextEditingController();
   final TextEditingController _addressValue = TextEditingController();
-  TextEditingController _addressValue2 = TextEditingController();
+  final TextEditingController _constructionValue = TextEditingController();
+  final TextEditingController _hostValue = TextEditingController();
+  final TextEditingController _phoneValue = TextEditingController();
 
   late Position _currentPosition;
   late String _currentAddress;
@@ -123,13 +125,32 @@ class _HostScreenState extends State<HostScreen> {
         Container(
           margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
           child: TextField(
+            controller: _constructionValue,
             decoration: const InputDecoration(
               labelText: 'Tên công trình',
               border: OutlineInputBorder(),
             ),
-            onChanged: (text) {
-              print('First text field: $text (${text.characters.length})');
-            },
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+          child: TextField(
+            controller: _hostValue,
+            decoration: const InputDecoration(
+              labelText: 'Chủ nhà',
+              border: OutlineInputBorder(),
+            ),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+          child: TextField(
+            controller: _phoneValue,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Số điện thoại',
+              border: OutlineInputBorder(),
+            ),
           ),
         ),
         _image == null
