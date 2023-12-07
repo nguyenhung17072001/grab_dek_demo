@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:grab_dek_demo/screens/host_map.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
@@ -173,10 +174,19 @@ class _HostScreenState extends State<HostScreen> {
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
               ),
               onPressed: () {
-                Navigator.push(
+                /* Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const MapSample()),
-                );
+                ); */
+                Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HostMap(
+                    latitude: _currentPosition.latitude,
+                    longitude: _currentPosition.longitude,
+                  )
+                ),
+              );
               },
               child: Text('Tìm thợ')),
         )
