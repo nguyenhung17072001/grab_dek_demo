@@ -24,11 +24,7 @@ class HostMapState extends State<HostMap> {
   late BitmapDescriptor hostIcon;
   
   static const List<dynamic> wokers = [
-    {
-      "name": "Thợ 1",
-      "lat": "21.0154722",
-      "lon": "105.855"
-    },
+    
     {
       "name": "Thợ 2",
       "lat": "21.014599",
@@ -80,7 +76,7 @@ class HostMapState extends State<HostMap> {
 
   
   Set<Marker> _markers = {};
-
+  Set<Circle> _circles = {};
   @override
   void initState() {
    
@@ -94,6 +90,54 @@ class HostMapState extends State<HostMap> {
   
     super.initState();
   }
+
+void _addRadarCircle() {
+  const double radarRadius = 1000; // Bán kính vòng radar
+  _circles.add(
+    Circle(
+      circleId: const CircleId("hostRadar"),
+      center: LatLng(_latitude, _longitude),
+      radius: radarRadius, // Độ dài bán kính vòng tròn (ở đây là 1000 mét)
+      fillColor: Colors.blue.withOpacity(0.1), // Màu sắc và độ trong suốt của vòng tròn
+      strokeWidth: 1,
+      strokeColor: Colors.blue,
+    ),
+  );
+  _animateRadar(); // Gọi hàm để tạo hiệu ứng quét
+}
+
+void _animateRadar() {
+  const int animationDuration = 3000; // Thời gian để hoàn thành một chu kỳ quét (ms)
+  const int frames = 60; // Số lượng frames để tạo hiệu ứng mượt mà
+  final double step = 1 / frames;
+
+  int currentFrame = 0;
+  Timer.periodic(const Duration(milliseconds: animationDuration ~/ frames), (Timer timer) {
+    setState(() {
+      final double percentage = currentFrame * step;
+      final gradientColor = Colors.blue.withOpacity(0.3 - (0.3 * percentage));
+      final radius = 1000 * percentage;
+      _circles = {
+        Circle(
+          circleId: const CircleId("hostRadar"),
+          center: LatLng(_latitude, _longitude),
+          radius: radius,
+          fillColor: gradientColor, // Màu sắc thay đổi theo gradient
+          strokeWidth: 0,
+          visible: true,
+        )
+      };
+      currentFrame++;
+      if (currentFrame > frames) {
+        timer.cancel();
+        _circles = {}; // Xóa vòng tròn sau khi hoàn thành hiệu ứng quét
+      }
+    });
+  });
+}
+
+
+
 
   void _addHostMarker() async {
     _markers.add(
@@ -111,10 +155,12 @@ class HostMapState extends State<HostMap> {
         ),
       ),
     );
+    
     setState(() {
 
     });
   }
+  
   void _addWorkerMarkers(List<dynamic> workers) async {
   for (var worker in workers) {
     double lat = double.parse(worker['lat'].toString());
@@ -162,18 +208,15 @@ class HostMapState extends State<HostMap> {
             _controller.complete(controller);
             _addHostMarker(); 
             _addWorkerMarkers(wokers);
-
+            _addRadarCircle();
             
             //_addWorkerMarkers(workers);
           },
           markers: _markers,
+          circles: _circles,
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('To the lake!'),
-        icon: const Icon(Icons.directions_boat),
-      ),
+      
     );
   }
 
