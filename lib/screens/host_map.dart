@@ -23,122 +23,82 @@ class HostMapState extends State<HostMap> {
   late double _longitude;
   late CameraPosition _kGooglePlex;
   late BitmapDescriptor hostIcon;
-  
+
   static const List<dynamic> wokers = [
-    
-    {
-      "name": "Thợ 2",
-      "lat": "21.014599",
-      "lon": "105.851642"
-    },
-    {
-      "name": "Thợ 3",
-      "lat": "21.015922",
-      "lon": "105.859339"
-    },
-    {
-      "name": "Thợ 4",
-      "lat": "21.017581",
-      "lon": "105.855529"
-    },
-    {
-      "name": "Thợ 5",
-      "lat": "21.009929716805722",
-      "lon": "105.84106206806747"
-    },
-    {
-      "name": "Thợ 6",
-      "lat": "21.009929716805722",
-      "lon": "105.84106206806747"
-    },
-    {
-      "name": "Thợ 7",
-      "lat": "21.014211855697347",
-      "lon": "105.84902786667328"
-    },
-    {
-      "name": "Thợ 8",
-      "lat": "20.983579",
-      "lon": "105.849482"
-    },
-    {
-      "name": "Thợ 9",
-      "lat": "20.988025",
-      "lon": "105.841313"
-    },
-    {
-      "name": "Thợ 10",
-      "lat": "21.000263",
-      "lon": "105.832091"
-    },
-
+    {"name": "Thợ 2", "lat": "21.014599", "lon": "105.851642"},
+    {"name": "Thợ 3", "lat": "21.015922", "lon": "105.859339"},
+    {"name": "Thợ 4", "lat": "21.017581", "lon": "105.855529"},
+    {"name": "Thợ 5", "lat": "21.009929716805722", "lon": "105.84106206806747"},
+    {"name": "Thợ 6", "lat": "21.009929716805722", "lon": "105.84106206806747"},
+    {"name": "Thợ 7", "lat": "21.014211855697347", "lon": "105.84902786667328"},
+    {"name": "Thợ 8", "lat": "20.983579", "lon": "105.849482"},
+    {"name": "Thợ 9", "lat": "20.988025", "lon": "105.841313"},
+    {"name": "Thợ 10", "lat": "21.000263", "lon": "105.832091"},
   ];
- 
 
-  
   Set<Marker> _markers = {};
   Set<Circle> _circles = {};
   @override
   void initState() {
-   
     _latitude = widget.latitude;
     _longitude = widget.longitude;
     _kGooglePlex = CameraPosition(
       target: LatLng(_latitude, _longitude),
       zoom: 15,
     );
-   
-  
+
     super.initState();
   }
 
-void _addRadarCircle() {
-  const double radarRadius = 1000; // Bán kính vòng radar
-  _circles.add(
-    Circle(
-      circleId: const CircleId("hostRadar"),
-      center: LatLng(_latitude, _longitude),
-      radius: radarRadius, // Độ dài bán kính vòng tròn (ở đây là 1000 mét)
-      fillColor: Colors.blue.withOpacity(0.1), // Màu sắc và độ trong suốt của vòng tròn
-      strokeWidth: 1,
-      strokeColor: Colors.blue,
-    ),
-  );
-  _animateRadar(); // Gọi hàm để tạo hiệu ứng quét
-}
-
-void _animateRadar() {
-  const int animationDuration = 3000; // Thời gian để hoàn thành một chu kỳ quét (ms)
-  const int frames = 60; // Số lượng frames để tạo hiệu ứng mượt mà
-  final double step = 1 / frames;
-
-  int currentFrame = 0;
-  Timer.periodic(const Duration(milliseconds: animationDuration ~/ frames), (Timer timer) {
+  void _addCircle() {
+    const double radarRadius = 1000;
+    _circles.add(
+      Circle(
+        circleId: const CircleId("hostRadar"),
+        center: LatLng(_latitude, _longitude),
+        radius: radarRadius, 
+        fillColor: Colors.blue,
+        strokeWidth: 1,
+        strokeColor: Colors.blue,
+      ),
+    );
     setState(() {
-      final double percentage = currentFrame * step;
-      final gradientColor = Colors.blue.withOpacity(0.3 - (0.3 * percentage));
-      final radius = 1000 * percentage;
-      _circles = {
-        Circle(
-          circleId: const CircleId("hostRadar"),
-          center: LatLng(_latitude, _longitude),
-          radius: radius,
-          fillColor: gradientColor, // Màu sắc thay đổi theo gradient
-          strokeWidth: 0,
-          visible: true,
-        )
-      };
-      currentFrame++;
-      if (currentFrame > frames) {
-        timer.cancel();
-        _circles = {}; // Xóa vòng tròn sau khi hoàn thành hiệu ứng quét
-      }
+      
     });
-  });
-}
+     
+  }
 
+  void _animateRadar() {
+    const int animationDuration =
+        3000; 
+    const int frames = 60; 
+    const double step = 1 / frames;
 
-
+    int currentFrame = 0;
+    Timer.periodic(const Duration(milliseconds: animationDuration ~/ frames),
+        (Timer timer) {
+      setState(() {
+        final double percentage = currentFrame * step;
+        final gradientColor = Colors.blue.withOpacity(0.3 - (0.3 * percentage));
+        final radius = 1000 * percentage;
+        _circles = {
+          Circle(
+            circleId: const CircleId("hostRadar2"),
+            center: LatLng(_latitude, _longitude),
+            radius: radius,
+            fillColor: gradientColor, 
+            strokeWidth: 0,
+            visible: true,
+          )
+        };
+        currentFrame++;
+        if (currentFrame > frames) {
+          timer.cancel();
+          _circles = {}; 
+        }
+      });
+    });
+  }
 
   void _addHostMarker() async {
     _markers.add(
@@ -156,47 +116,47 @@ void _animateRadar() {
         ),
       ),
     );
-    
-    setState(() {
 
-    });
+    setState(() {});
   }
-  
+
   void _addWorkerMarkers(List<dynamic> workers) async {
-  for (var worker in workers) {
-    double lat = double.parse(worker['lat'].toString());
-    double lon = double.parse(worker['lon'].toString());
+    for (var worker in workers) {
+      double lat = double.parse(worker['lat'].toString());
+      double lon = double.parse(worker['lon'].toString());
 
-    _markers.add(
-      Marker(
-        markerId: MarkerId(worker['name']),
-        position: LatLng(lat, lon),
-        icon: await MarkerIcon.pictureAsset(
-          assetPath: 'lib/assets/icons/worker_icon.png', // Change to your worker icon path
-          width: 120,
-          height: 120,
+      _markers.add(
+        Marker(
+          markerId: MarkerId(worker['name']),
+          position: LatLng(lat, lon),
+          icon: await MarkerIcon.pictureAsset(
+            assetPath:
+                'lib/assets/icons/worker_icon.png', 
+            width: 120,
+            height: 120,
+          ),
+          infoWindow: InfoWindow(
+            title: worker['name'],
+            snippet:
+                "Worker's details here", 
+          ),
+          onTap: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return WorkerDetailsModal(
+                  name: worker['name'],
+                  snippet:
+                      "Các thông tin, thông số của thợ", 
+                );
+              },
+            );
+          },
         ),
-        infoWindow: InfoWindow(
-          title: worker['name'],
-          snippet: "Worker's details here", // You can add worker-specific information here
-        ),
-        onTap: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (BuildContext context) {
-              return WorkerDetailsModal(
-                name: worker['name'],
-                snippet: "Các thông tin, thông số của thợ", // Thay đổi thành thông tin thực tế của Worker
-              );
-            },
-          );
-        },
-      ),
-    );
+      );
+    }
+    setState(() {});
   }
-  setState(() {});
-}
-
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -218,17 +178,17 @@ void _animateRadar() {
           initialCameraPosition: _kGooglePlex,
           onMapCreated: (GoogleMapController controller) async {
             _controller.complete(controller);
-            _addHostMarker(); 
+            _addHostMarker();
             _addWorkerMarkers(wokers);
-            _addRadarCircle();
-            
+            _addCircle();
+            _animateRadar();
+
             //_addWorkerMarkers(workers);
           },
           markers: _markers,
           circles: _circles,
         ),
       ),
-      
     );
   }
 
@@ -236,7 +196,4 @@ void _animateRadar() {
     final GoogleMapController controller = await _controller.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
-
-
-  
 }
