@@ -57,7 +57,7 @@ class HostMapState extends State<HostMap> {
         circleId: const CircleId("hostRadar"),
         center: LatLng(_latitude, _longitude),
         radius: radarRadius, 
-        fillColor: Colors.blue,
+        fillColor: Colors.blue.withOpacity(0.1),
         strokeWidth: 1,
         strokeColor: Colors.blue,
       ),
@@ -68,37 +68,7 @@ class HostMapState extends State<HostMap> {
      
   }
 
-  void _animateRadar() {
-    const int animationDuration =
-        3000; 
-    const int frames = 60; 
-    const double step = 1 / frames;
 
-    int currentFrame = 0;
-    Timer.periodic(const Duration(milliseconds: animationDuration ~/ frames),
-        (Timer timer) {
-      setState(() {
-        final double percentage = currentFrame * step;
-        final gradientColor = Colors.blue.withOpacity(0.3 - (0.3 * percentage));
-        final radius = 1000 * percentage;
-        _circles = {
-          Circle(
-            circleId: const CircleId("hostRadar2"),
-            center: LatLng(_latitude, _longitude),
-            radius: radius,
-            fillColor: gradientColor, 
-            strokeWidth: 0,
-            visible: true,
-          )
-        };
-        currentFrame++;
-        if (currentFrame > frames) {
-          timer.cancel();
-          _circles = {}; 
-        }
-      });
-    });
-  }
 
   void _addHostMarker() async {
     _markers.add(
@@ -181,7 +151,7 @@ class HostMapState extends State<HostMap> {
             _addHostMarker();
             _addWorkerMarkers(wokers);
             _addCircle();
-            _animateRadar();
+   
 
             //_addWorkerMarkers(workers);
           },

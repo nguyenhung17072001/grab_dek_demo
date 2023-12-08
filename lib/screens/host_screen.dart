@@ -37,9 +37,7 @@ class _HostScreenState extends State<HostScreen> {
   void _getCurrentLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    setState(() {
-      _currentPosition = position;
-    });
+    _currentPosition = position;
     var url = Uri.https('nominatim.openstreetmap.org', '/reverse', {
       'format': 'json',
       'lat': position.latitude.toString(), // Chuyển latitude thành chuỗi
