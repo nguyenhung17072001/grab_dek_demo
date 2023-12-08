@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grab_dek_demo/screens/host_screen.dart';
+import 'package:grab_dek_demo/screens/worker_screen.dart';
 
 
 class BottomTab extends StatefulWidget {
@@ -15,11 +16,7 @@ class _BottomTabState extends State<BottomTab> {
   final List<Widget> _tabs = [
     
     const HostScreen(),
-    Container(
-      child: const Center(
-        child: Text('Tab 2'),
-      ),
-    ),
+    const WorkerScreen(),
     Container(
       child: const Center(
         child: Text('Tab 3'),
