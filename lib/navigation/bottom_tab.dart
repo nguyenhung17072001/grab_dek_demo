@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grab_dek_demo/screens/home.dart';
 import 'package:grab_dek_demo/screens/host_screen.dart';
 import 'package:grab_dek_demo/screens/worker_screen.dart';
 
@@ -15,7 +16,7 @@ class _BottomTabState extends State<BottomTab> {
 
   final List<Widget> _tabs = [
     
-    const HostScreen(),
+    const HomeScreen(),
     const WorkerScreen(),
     Container(
       child: const Center(
@@ -38,7 +39,7 @@ class _BottomTabState extends State<BottomTab> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Chủ nhà',
+            label: 'Trang chủ',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
