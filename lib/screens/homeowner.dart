@@ -23,34 +23,46 @@ class _HomeownerState extends State<Homeowner> {
             Positioned(
               left: -20,
               top: -20,
-              child: Container(
-                width: 100,
-                height: 100,
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                  shape: BoxShape.circle,
+              child: Opacity(
+                opacity: 0.15,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xffFFF100),
+                        Color(0xffFFB57E),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
             Positioned(
               right: -40,
               bottom: -40,
-              child: Container(
-                width: 180,
-                height: 180,
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                  shape: BoxShape.circle,
+              child: Opacity(
+                opacity: 0.15,
+                child: Container(
+                  width: 180,
+                  height: 180,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xffFFF100),
+                        Color(0xffFFB57E),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
-            
-            
-            
           ],
         ),
       ),
-
     );
   }
 }
