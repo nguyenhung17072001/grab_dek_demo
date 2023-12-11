@@ -70,6 +70,9 @@ flutter:
     - lib/assets/icons/house_icon.png
     - lib/assets/icons/worker_icon.png
     - lib/assets/worker.json
+
+
+    - lib/assets/images/information_form.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

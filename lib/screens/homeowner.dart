@@ -10,10 +10,16 @@ class Homeowner extends StatefulWidget {
 }
 
 class _HomeownerState extends State<Homeowner> {
+  final TextEditingController _ownerNameValue = TextEditingController();
+  final TextEditingController _phoneValue = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Scaffold(
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
@@ -28,7 +34,10 @@ class _HomeownerState extends State<Homeowner> {
           elevation: 1,
           shadowColor: const Color(0xffF0F0F0),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(
+              Icons.chevron_left,
+              size: 26,
+            ),
             onPressed: () {
               Navigator.of(context).pop(); // Quay lại trang trước
             },
@@ -53,7 +62,7 @@ class _HomeownerState extends State<Homeowner> {
             Positioned.fill(
               child: Column(mainAxisSize: MainAxisSize.max, children: [
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: const Text(
                     'Thông tin chủ nhà',
                     style: TextStyle(
@@ -84,7 +93,7 @@ class _HomeownerState extends State<Homeowner> {
                       Container(
                         height: 2,
                         width: 130,
-                        color: Color(0xffE6E6E6),
+                        color: const Color(0xffE6E6E6),
                       ),
                       Container(
                         height: 16,
@@ -96,7 +105,67 @@ class _HomeownerState extends State<Homeowner> {
                       ),
                     ],
                   ),
-                )
+                ),
+                Image.asset(
+                  'lib/assets/images/information_form.png',
+                  fit: BoxFit.contain,
+                  height: 226,
+                  width: 226,
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+                  child: TextField(
+                    
+                    controller: _ownerNameValue,
+                    decoration: const InputDecoration(
+                      labelText: 'Tên chủ nhà',
+                      labelStyle: TextStyle(
+                        fontFamily: 'Roboto-Regular',
+                        color: Color(0xff3B3B3B),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.person,
+                        color: AppColors.primaryColor, 
+                      ),
+                      
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: AppColors.primaryColor
+                        ), 
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffE6E6E6))),
+                      ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+                  child: TextField(
+                    
+                    controller: _phoneValue,
+                    decoration: const InputDecoration(
+                      labelText: 'Số điện thoại',
+                      labelStyle: TextStyle(
+                        fontFamily: 'Roboto-Regular',
+                        color: Color(0xff3B3B3B),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.person,
+                        color: AppColors.primaryColor, 
+                      ),
+                      
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: AppColors.primaryColor
+                        ), 
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffE6E6E6))),
+                      ),
+                  ),
+                ),
               ]),
             )
           ],
