@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:grab_dek_demo/core/colors.dart';
-import 'package:grab_dek_demo/screens/homeowner_2.dart';
 import 'package:grab_dek_demo/widget/positionedCircle.dart';
 
-class Homeowner extends StatefulWidget {
-  const Homeowner({super.key});
+class Homeowner2 extends StatefulWidget {
+  const Homeowner2({super.key});
 
   @override
-  State<Homeowner> createState() => _HomeownerState();
+  State<Homeowner2> createState() => _Homeowner2State();
 }
 
-class _HomeownerState extends State<Homeowner> {
-  final TextEditingController _ownerNameValue = TextEditingController();
-  final TextEditingController _phoneValue = TextEditingController();
+class _Homeowner2State extends State<Homeowner2> {
+  final TextEditingController _constructionNameValue = TextEditingController();
+  final TextEditingController _addressValue = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class _HomeownerState extends State<Homeowner> {
                       alignment: Alignment.center,
                       margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                       child: const Text(
-                        'Thông tin chủ nhà',
+                        'Thông tin công trình',
                         style: TextStyle(
                           fontFamily: 'Roboto-Regular',
                           fontSize: 14,
@@ -96,37 +95,45 @@ class _HomeownerState extends State<Homeowner> {
                           Container(
                             height: 2,
                             width: 130,
-                            color: const Color(0xffE6E6E6),
+                            decoration: const BoxDecoration(
+                              //shape: BoxShape.circle,
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color(0xffFFF100),
+                                  Color(0xffFFB57E),
+                                ],
+                              ),
+                            ),
                           ),
                           Container(
                             height: 16,
                             width: 16,
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Color(0xffE6E6E6),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color(0xffFFF100),
+                                  Color(0xffFFB57E),
+                                ],
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Image.asset(
-                      'lib/assets/images/information_form.png',
-                      fit: BoxFit.contain,
-                      height: 226,
-                      width: 226,
-                    ),
+                   
                     Container(
                       margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
                       child: TextField(
-                        controller: _ownerNameValue,
+                        controller: _constructionNameValue,
                         decoration: const InputDecoration(
-                          labelText: 'Tên chủ nhà',
+                          labelText: 'Tên công trình',
                           labelStyle: TextStyle(
                             fontFamily: 'Roboto-Regular',
                             color: Color(0xff3B3B3B),
                           ),
                           prefixIcon: Icon(
-                            Icons.person,
+                            Icons.business,
                             color: AppColors.primaryColor,
                           ),
                           border: OutlineInputBorder(),
@@ -142,15 +149,15 @@ class _HomeownerState extends State<Homeowner> {
                     Container(
                       margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
                       child: TextField(
-                        controller: _phoneValue,
+                        controller: _addressValue,
                         decoration: const InputDecoration(
-                          labelText: 'Số điện thoại',
+                          labelText: 'Địa chỉ công trình',
                           labelStyle: TextStyle(
                             fontFamily: 'Roboto-Regular',
                             color: Color(0xff3B3B3B),
                           ),
                           prefixIcon: Icon(
-                            Icons.phone,
+                            Icons.location_searching_sharp,
                             color: AppColors.primaryColor,
                           ),
                           border: OutlineInputBorder(),
@@ -221,16 +228,11 @@ class _HomeownerState extends State<Homeowner> {
                               ),
                               child: TextButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const Homeowner2()
-                                    )
-                                  );
-                                },
+                                  
+                                  },
                                 style: ButtonStyle(
                                   overlayColor: MaterialStateProperty.all<Color>(
-                                    Color(0xff818181),
+                                    Colors.white,
                                   ),
                                 ),
                                 child: SizedBox(
