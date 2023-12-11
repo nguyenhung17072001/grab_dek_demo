@@ -213,7 +213,7 @@ class _HomeownerState extends State<Homeowner> {
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               decoration: const BoxDecoration(
-                                color: Color(0xffD8D8D8),
+                                color: AppColors.primaryColor,
                                 borderRadius: BorderRadius.horizontal(
                                   left: Radius.circular(10),
                                   right: Radius.circular(10),
@@ -230,7 +230,7 @@ class _HomeownerState extends State<Homeowner> {
                                 },
                                 style: ButtonStyle(
                                   overlayColor: MaterialStateProperty.all<Color>(
-                                    Color(0xff818181),
+                                    Colors.white,
                                   ),
                                 ),
                                 child: SizedBox(
@@ -242,7 +242,7 @@ class _HomeownerState extends State<Homeowner> {
                                       child: Text(
                                         'Tiếp tục',
                                         style: TextStyle(
-                                          color: Color(0xff818181),
+                                          color: Colors.white,
                                           fontSize: 14,
                                         ),
                                       ),

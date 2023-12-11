@@ -171,6 +171,51 @@ class _Homeowner2State extends State<Homeowner2> {
                       ),
                     ),
                     Container(
+                      margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Ảnh công trình',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Roboto-Regular'
+                            ),
+                          ),
+                          Container(
+                            decoration: const BoxDecoration(
+                                //color: Colors.white,
+                                border: Border(
+                                  
+                                ),
+                                borderRadius: BorderRadius.horizontal(
+                                  left: Radius.circular(10),
+                                  right: Radius.circular(10),
+                                ),
+                              ),
+                            width: MediaQuery.of(context).size.width*0.4,
+                            height: 100,
+                            child: TextButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                side: MaterialStateProperty.all<BorderSide>(
+                                    const BorderSide(
+                                      color: Color(0xffE6E6E6),
+                                      width: 1.0,
+                                    ),
+                                  ),
+                              ),
+                              child: Icon(
+                                Icons.image,
+                                color: AppColors.primaryColor,
+                              ),
+                            ),
+                          )
+                        ]
+                      ),
+                    ),
+
+                    Container(
                       margin: const EdgeInsets.symmetric(
                                       vertical: 20.0),
                       child: Row(
@@ -220,7 +265,7 @@ class _Homeowner2State extends State<Homeowner2> {
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               decoration: const BoxDecoration(
-                                color: Color(0xffD8D8D8),
+                                color: AppColors.primaryColor,
                                 borderRadius: BorderRadius.horizontal(
                                   left: Radius.circular(10),
                                   right: Radius.circular(10),
@@ -244,7 +289,7 @@ class _Homeowner2State extends State<Homeowner2> {
                                       child: Text(
                                         'Tiếp tục',
                                         style: TextStyle(
-                                          color: Color(0xff818181),
+                                          color: Colors.white,
                                           fontSize: 14,
                                         ),
                                       ),
