@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grab_dek_demo/core/colors.dart';
+import 'package:grab_dek_demo/widget/positionedCircle.dart';
 
 class Homeowner extends StatefulWidget {
   const Homeowner({super.key});
@@ -19,47 +20,22 @@ class _HomeownerState extends State<Homeowner> {
           actions: [],
         ),
         body: Stack(
+          
           children: <Widget>[
-            Positioned(
-              left: -20,
-              top: -20,
-              child: Opacity(
-                opacity: 0.15,
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xffFFF100),
-                        Color(0xffFFB57E),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+             PositionedCircle(
+              top: -40,
+              left: -40,
+              width: 180,
+              height: 180,
             ),
-            Positioned(
+            PositionedCircle(
               right: -40,
               bottom: -40,
-              child: Opacity(
-                opacity: 0.15,
-                child: Container(
-                  width: 180,
-                  height: 180,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xffFFF100),
-                        Color(0xffFFB57E),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              width: 180,
+              height: 180,
             ),
+
+
           ],
         ),
       ),
