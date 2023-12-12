@@ -24,6 +24,7 @@ class HostMapState extends State<HostMap> {
   late CameraPosition _kGooglePlex;
   late BitmapDescriptor hostIcon;
   late double radarRadius = 0;
+  double previousZoom = 0.0;
   bool agentsMarkersVisible = false;
   
   static const List<dynamic> wokers = [
@@ -239,15 +240,20 @@ class HostMapState extends State<HostMap> {
           onCameraMove: (CameraPosition position) {
             final double zoomLevel = position.zoom;
             print('Độ zoom hiện tại: $zoomLevel');
-            agentsMarkersVisible = zoomLevel > 14.5;
+      
+            if ((previousZoom <= 14.5 && zoomLevel > 14.5) ||
+                (previousZoom > 14.5 && zoomLevel <= 14.5)) {
+              setState(() {
+                agentsMarkersVisible = zoomLevel > 14.5;
+              });
 
-            // Add or remove AgentsMarkers based on zoom level
-            if (agentsMarkersVisible) {
-              _addAgentsMarkers(agents);
-            } else {
-              _markers.removeWhere((marker) => agents.any((agent) => marker.markerId.value == agent['name']));
-              // Assuming agents is a list of unique names
+              if (agentsMarkersVisible) {
+                _addAgentsMarkers(agents);
+              } else {
+                _markers.removeWhere((marker) => agents.any((agent) => marker.markerId.value == agent['name']));
+              }
             }
+            previousZoom = zoomLevel;
           },
           
           markers: _markers,
