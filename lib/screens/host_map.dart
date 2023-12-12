@@ -24,7 +24,7 @@ class HostMapState extends State<HostMap> {
   late CameraPosition _kGooglePlex;
   late BitmapDescriptor hostIcon;
   late double radarRadius = 0;
-
+  bool agentsMarkersVisible = false;
   
   static const List<dynamic> wokers = [
     {"name": "Thợ 2", "lat": "21.014599", "lon": "105.851642"},
@@ -37,6 +37,17 @@ class HostMapState extends State<HostMap> {
     {"name": "Thợ 9", "lat": "20.988025", "lon": "105.841313"},
     {"name": "Thợ 10", "lat": "21.000263", "lon": "105.832091"},
   ];
+  static const List<dynamic> agents = [
+    {"name": "Đại lý 2", "lat": "21.001220", "lon": "105.828733"},
+    {"name": "Đại lý 3", "lat": "20.992646", "lon": "105.828819"},
+    {"name": "Đại lý 4", "lat": "20.990201", "lon": "105.841393"},
+    {"name": "Đại lý 5", "lat": "21.078176", "lon": "105.778934"},
+    {"name": "Đại lý 6", "lat": "21.081743", "lon": "105.766934"},
+    {"name": "Đại lý 7", "lat": "21.010435", "lon": "105.857515"},
+    {"name": "Đại lý 8", "lat": "21.024529", "lon": "105.854606"},
+    {"name": "Đại lý 9", "lat": "20.999214", "lon": "105.837240"},
+    {"name": "Đại lý 10", "lat": "20.990335", "lon": "105.851740"},
+  ];
 
 
   Set<Marker> _markers = {};
@@ -47,7 +58,7 @@ class HostMapState extends State<HostMap> {
     _longitude = widget.longitude;
     _kGooglePlex = CameraPosition(
       target: LatLng(_latitude, _longitude),
-      zoom: 14.5,
+      zoom: 14,
     );
     _setRadarRadius();
   
@@ -58,22 +69,22 @@ class HostMapState extends State<HostMap> {
     const double targetValue = 1000;
     const double durationInSeconds = 1.8;
     const int updateFrequencyInMilliseconds = 40;
-    Timer.periodic(Duration(milliseconds: updateFrequencyInMilliseconds), (Timer timer) {
+    Timer.periodic(const Duration(milliseconds: updateFrequencyInMilliseconds), (Timer timer) {
       setState(() {
         if (radarRadius < targetValue) {
           radarRadius += (targetValue / (durationInSeconds * 1000 / updateFrequencyInMilliseconds));
 
           
           Circle? radarCircle = _circles.firstWhere(
-            (circle) => circle.circleId == CircleId("radar"),
-            orElse: () => Circle(circleId: CircleId("none")), 
+            (circle) => circle.circleId == const CircleId("radar"),
+            orElse: () => const Circle(circleId: CircleId("none")), 
           );
 
-          if (radarCircle.circleId != CircleId("none")) {
+          if (radarCircle.circleId != const CircleId("none")) {
             _circles.remove(radarCircle); 
             _circles.add(
               Circle(
-                circleId: CircleId("radar"),
+                circleId: const CircleId("radar"),
                 center: LatLng(_latitude, _longitude),
                 radius: radarRadius, 
                 fillColor: Colors.blue.withOpacity(0.1),
@@ -90,23 +101,7 @@ class HostMapState extends State<HostMap> {
     });
   }
 
-  void _addCircle() {
-    const double radius = 1000;
-    _circles.add(
-      Circle(
-        circleId: const CircleId("distance"),
-        center: LatLng(_latitude, _longitude),
-        radius: radius, 
-        fillColor: Colors.blue.withOpacity(0.1),
-        strokeWidth: 1,
-        strokeColor: Colors.blue,
-      ),
-    );
-    setState(() {
-      
-    });
-     
-  }
+  
   void _addRadar() {
     
   
@@ -186,6 +181,34 @@ class HostMapState extends State<HostMap> {
     }
     setState(() {});
   }
+  void _addAgentsMarkers(List<dynamic> agents) async {
+    for (var agent in agents) {
+      double lat = double.parse(agent['lat'].toString());
+      double lon = double.parse(agent['lon'].toString());
+
+      _markers.add(
+        Marker(
+          markerId: MarkerId(agent['name']),
+          position: LatLng(lat, lon),
+          icon: await MarkerIcon.pictureAsset(
+            assetPath:
+                'lib/assets/icons/agent.png', 
+            width: 80,
+            height: 80,
+          ),
+          infoWindow: InfoWindow(
+            title: agent['name'],
+            snippet:
+                "Worker's details here", 
+          ),
+          onTap: () {
+            
+          },
+        ),
+      );
+    }
+    setState(() {});
+  }
 
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
 
@@ -203,6 +226,7 @@ class HostMapState extends State<HostMap> {
             _controller.complete(controller);
             _addHostMarker();
             _addWorkerMarkers(wokers);
+            //_addAgentsMarkers(agents);
             //_addCircle();
             _addRadar();
 
@@ -215,7 +239,15 @@ class HostMapState extends State<HostMap> {
           onCameraMove: (CameraPosition position) {
             final double zoomLevel = position.zoom;
             print('Độ zoom hiện tại: $zoomLevel');
-            
+            agentsMarkersVisible = zoomLevel > 14.5;
+
+            // Add or remove AgentsMarkers based on zoom level
+            if (agentsMarkersVisible) {
+              _addAgentsMarkers(agents);
+            } else {
+              _markers.removeWhere((marker) => agents.any((agent) => marker.markerId.value == agent['name']));
+              // Assuming agents is a list of unique names
+            }
           },
           
           markers: _markers,
