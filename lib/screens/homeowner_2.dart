@@ -161,26 +161,37 @@ class _Homeowner2State extends State<Homeowner2> {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                  child: TextField(
-                    controller: _addressValue,
-                    decoration: const InputDecoration(
-                      labelText: 'Địa chỉ công trình',
-                      labelStyle: TextStyle(
-                        fontFamily: 'Roboto-Regular',
-                        color: Color(0xff3B3B3B),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.location_searching_sharp,
-                        color: AppColors.primaryColor,
-                      ),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.primaryColor),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffE6E6E6))),
+                  margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
+                  alignment: AlignmentDirectional.centerStart,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1,
+                      color: Color(0xffE6E6E6),
+
                     ),
+                    borderRadius: BorderRadius.circular(6.0), 
+                  ),
+                  child: TextButton.icon(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.location_searching_sharp,
+                      color: AppColors.primaryColor,
+                    ), 
+                    label: Container(
+                      margin: EdgeInsets.fromLTRB(5, 10, 5, 10),
+                      width: double.infinity,
+                      child: const Text(
+                        'Địa chỉ công trình',
+                        style: TextStyle(
+                          fontFamily: 'Roboto-Regular',
+                          fontSize: 16,
+                          color: Color(0xff3B3B3B),
+                          
+                          
+                        ),
+                      ),
+                    ),
+                    //child: Text(),
                   ),
                 ),
                 Container(
