@@ -23,7 +23,10 @@ class HostMapState extends State<HostMap> {
   late double _longitude;
   late CameraPosition _kGooglePlex;
   late BitmapDescriptor hostIcon;
+  late AnimationController _radarAnimationController;
+  late Animation<double> _radarAnimation;
 
+  
   static const List<dynamic> wokers = [
     {"name": "Thợ 2", "lat": "21.014599", "lon": "105.851642"},
     {"name": "Thợ 3", "lat": "21.015922", "lon": "105.859339"},
@@ -36,6 +39,7 @@ class HostMapState extends State<HostMap> {
     {"name": "Thợ 10", "lat": "21.000263", "lon": "105.832091"},
   ];
 
+
   Set<Marker> _markers = {};
   Set<Circle> _circles = {};
   @override
@@ -47,6 +51,7 @@ class HostMapState extends State<HostMap> {
       zoom: 15,
     );
 
+
     super.initState();
   }
 
@@ -54,7 +59,7 @@ class HostMapState extends State<HostMap> {
     const double radarRadius = 1000;
     _circles.add(
       Circle(
-        circleId: const CircleId("hostRadar"),
+        circleId: const CircleId("distance"),
         center: LatLng(_latitude, _longitude),
         radius: radarRadius, 
         fillColor: Colors.blue.withOpacity(0.1),
@@ -62,6 +67,13 @@ class HostMapState extends State<HostMap> {
         strokeColor: Colors.blue,
       ),
     );
+    setState(() {
+      
+    });
+     
+  }
+  void _addRadar() {
+    
     setState(() {
       
     });
@@ -89,6 +101,7 @@ class HostMapState extends State<HostMap> {
 
     setState(() {});
   }
+  
 
   void _addWorkerMarkers(List<dynamic> workers) async {
     for (var worker in workers) {
@@ -151,10 +164,19 @@ class HostMapState extends State<HostMap> {
             _addHostMarker();
             _addWorkerMarkers(wokers);
             _addCircle();
-   
+            
+            
 
             //_addWorkerMarkers(workers);
+           
           },
+         
+          onCameraMove: (CameraPosition position) {
+            final double zoomLevel = position.zoom;
+            print('Độ zoom hiện tại: $zoomLevel');
+            
+          },
+          
           markers: _markers,
           circles: _circles,
         ),
@@ -162,8 +184,5 @@ class HostMapState extends State<HostMap> {
     );
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }
+  
 }

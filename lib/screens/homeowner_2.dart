@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:grab_dek_demo/core/colors.dart';
+import 'package:grab_dek_demo/screens/host_map.dart';
 import 'package:grab_dek_demo/widget/positionedCircle.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -15,9 +17,40 @@ class Homeowner2 extends StatefulWidget {
 class _Homeowner2State extends State<Homeowner2> {
   final TextEditingController _constructionNameValue = TextEditingController();
   final TextEditingController _addressValue = TextEditingController();
-
+  late Position _currentPosition;
   late final List<File> _images = [];
   final ImagePicker _picker = ImagePicker();
+
+  @override
+  void initState() {
+    super.initState();
+    // Start listening to changes.
+    //_getCurrentLocation();
+
+  }
+
+  @override
+  void setState(VoidCallback fn) { 
+    super.setState(fn);
+    
+  }
+  void _getMap()  {
+      Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high).then((value) => {
+        Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => HostMap(
+                                    latitude: value.latitude,
+                                    longitude: value.longitude,
+                                  )
+                                ),
+                              )
+      });
+    
+    
+    
+  }
   Future getImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -308,7 +341,7 @@ class _Homeowner2State extends State<Homeowner2> {
                             ),
                           ),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: _getMap,
                             style: ButtonStyle(
                               overlayColor: MaterialStateProperty.all<Color>(
                                 Colors.white,
@@ -320,7 +353,7 @@ class _Homeowner2State extends State<Homeowner2> {
                                 padding: EdgeInsets.symmetric(vertical: 12.0),
                                 child: Center(
                                   child: Text(
-                                    'Tiếp tục',
+                                    'Tìm thợ',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
