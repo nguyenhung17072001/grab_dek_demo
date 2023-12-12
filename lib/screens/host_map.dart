@@ -23,8 +23,7 @@ class HostMapState extends State<HostMap> {
   late double _longitude;
   late CameraPosition _kGooglePlex;
   late BitmapDescriptor hostIcon;
-  late AnimationController _radarAnimationController;
-  late Animation<double> _radarAnimation;
+  late double radarRadius = 0;
 
   
   static const List<dynamic> wokers = [
@@ -48,20 +47,56 @@ class HostMapState extends State<HostMap> {
     _longitude = widget.longitude;
     _kGooglePlex = CameraPosition(
       target: LatLng(_latitude, _longitude),
-      zoom: 15,
+      zoom: 14.5,
     );
-
+    _setRadarRadius();
+  
 
     super.initState();
   }
+  void _setRadarRadius () {
+    const double targetValue = 1000;
+    const double durationInSeconds = 1.8;
+    const int updateFrequencyInMilliseconds = 40;
+    Timer.periodic(Duration(milliseconds: updateFrequencyInMilliseconds), (Timer timer) {
+      setState(() {
+        if (radarRadius < targetValue) {
+          radarRadius += (targetValue / (durationInSeconds * 1000 / updateFrequencyInMilliseconds));
+
+          
+          Circle? radarCircle = _circles.firstWhere(
+            (circle) => circle.circleId == CircleId("radar"),
+            orElse: () => Circle(circleId: CircleId("none")), 
+          );
+
+          if (radarCircle.circleId != CircleId("none")) {
+            _circles.remove(radarCircle); 
+            _circles.add(
+              Circle(
+                circleId: CircleId("radar"),
+                center: LatLng(_latitude, _longitude),
+                radius: radarRadius, 
+                fillColor: Colors.blue.withOpacity(0.1),
+                strokeWidth: 1,
+                strokeColor: Colors.blue,
+              ),
+            );
+          }
+        } else {
+          radarRadius = targetValue;
+          timer.cancel(); 
+        }
+      });
+    });
+  }
 
   void _addCircle() {
-    const double radarRadius = 1000;
+    const double radius = 1000;
     _circles.add(
       Circle(
         circleId: const CircleId("distance"),
         center: LatLng(_latitude, _longitude),
-        radius: radarRadius, 
+        radius: radius, 
         fillColor: Colors.blue.withOpacity(0.1),
         strokeWidth: 1,
         strokeColor: Colors.blue,
@@ -74,6 +109,17 @@ class HostMapState extends State<HostMap> {
   }
   void _addRadar() {
     
+  
+    _circles.add(
+      Circle(
+        circleId: const CircleId("radar"),
+        center: LatLng(_latitude, _longitude),
+        radius: radarRadius, 
+        fillColor: Colors.blue.withOpacity(0.1),
+        strokeWidth: 1,
+        strokeColor: Colors.blue,
+      ),
+    );
     setState(() {
       
     });
@@ -141,14 +187,8 @@ class HostMapState extends State<HostMap> {
     setState(() {});
   }
 
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
 
-  static const CameraPosition _kLake = CameraPosition(
-    bearing: 192.8334901395799,
-    target: LatLng(37.43296265331129, -122.08832357078792),
-    zoom: 19.151926040649414,
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -163,8 +203,9 @@ class HostMapState extends State<HostMap> {
             _controller.complete(controller);
             _addHostMarker();
             _addWorkerMarkers(wokers);
-            _addCircle();
-            
+            //_addCircle();
+            _addRadar();
+
             
 
             //_addWorkerMarkers(workers);
