@@ -6,7 +6,12 @@ class InfoField extends StatefulWidget {
   late String? labelText;
   late IconData? icon;
 
-  InfoField({super.key,  this.controller, required this.labelText, this.icon});
+  InfoField({
+    super.key,  
+    this.controller, 
+    required this.labelText, 
+    this.icon
+  });
 
   @override
   State<InfoField> createState() => _InfoFieldState();

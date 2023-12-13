@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:grab_dek_demo/core/colors.dart';
 import 'package:grab_dek_demo/screens/host_map.dart';
+import 'package:grab_dek_demo/widgets/info_field.dart';
 import 'package:grab_dek_demo/widgets/positionedCircle.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -38,14 +39,14 @@ class _Homeowner2State extends State<Homeowner2> {
       Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high).then((value) => {
         Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => HostMap(
-                                    latitude: value.latitude,
-                                    longitude: value.longitude,
-                                  )
-                                ),
-                              )
+          context,
+          MaterialPageRoute(
+            builder: (context) => HostMap(
+              latitude: value.latitude,
+              longitude: value.longitude,
+            )
+          ),
+        )
       });
     
     
@@ -170,48 +171,30 @@ class _Homeowner2State extends State<Homeowner2> {
                     ],
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                  child: TextField(
-                    controller: _constructionNameValue,
-                    decoration: const InputDecoration(
-                      labelText: 'Tên công trình',
-                      labelStyle: TextStyle(
-                        fontFamily: 'Roboto-Regular',
-                        color: Color(0xff3B3B3B),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.business,
-                        color: AppColors.primaryColor,
-                      ),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.primaryColor),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffE6E6E6))),
-                    ),
-                  ),
+                InfoField(
+                  controller: _constructionNameValue,
+                  labelText: 'Tên công trình',
+                  icon: Icons.business,
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
+                  margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
                   alignment: AlignmentDirectional.centerStart,
                   decoration: BoxDecoration(
                     border: Border.all(
                       width: 1,
-                      color: Color(0xffE6E6E6),
+                      color: const Color(0xffE6E6E6),
 
                     ),
                     borderRadius: BorderRadius.circular(6.0), 
                   ),
                   child: TextButton.icon(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.location_searching_sharp,
                       color: AppColors.primaryColor,
                     ), 
                     label: Container(
-                      margin: EdgeInsets.fromLTRB(5, 10, 5, 10),
+                      margin: const EdgeInsets.fromLTRB(5, 10, 5, 10),
                       width: double.infinity,
                       child: const Text(
                         'Địa chỉ công trình',
