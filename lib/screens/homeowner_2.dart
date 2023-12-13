@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:grab_dek_demo/core/colors.dart';
+import 'package:grab_dek_demo/screens/homeowner_3.dart';
 import 'package:grab_dek_demo/screens/host_map.dart';
 import 'package:grab_dek_demo/widgets/info_field.dart';
 import 'package:grab_dek_demo/widgets/positionedCircle.dart';
@@ -188,7 +189,14 @@ class _Homeowner2State extends State<Homeowner2> {
                     borderRadius: BorderRadius.circular(6.0), 
                   ),
                   child: TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Homeowner3()
+                        )
+                      );
+                    },
                     icon: const Icon(
                       Icons.location_searching_sharp,
                       color: AppColors.primaryColor,
@@ -207,7 +215,6 @@ class _Homeowner2State extends State<Homeowner2> {
                         ),
                       ),
                     ),
-                    //child: Text(),
                   ),
                 ),
                 Container(
