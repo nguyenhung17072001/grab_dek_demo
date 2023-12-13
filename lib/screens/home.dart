@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grab_dek_demo/core/colors.dart';
 import 'package:grab_dek_demo/screens/homeowner.dart';
+import 'package:grab_dek_demo/screens/worker.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -77,7 +78,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Worker()
+                    )
+                  );
+                },
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.all<Color>(
                     Colors.white,
