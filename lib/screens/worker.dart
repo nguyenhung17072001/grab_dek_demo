@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:grab_dek_demo/core/colors.dart';
 import 'package:grab_dek_demo/screens/homeowner_3.dart';
 //import 'package:grab_dek_demo/screens/Worker_2.dart';
 import 'package:grab_dek_demo/widgets/info_field.dart';
 import 'package:grab_dek_demo/widgets/positionedCircle.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Worker extends StatefulWidget {
   const Worker({super.key});
@@ -16,7 +19,21 @@ class _WorkerState extends State<Worker> {
   final TextEditingController _nameValue = TextEditingController();
   final TextEditingController _phoneValue = TextEditingController();
   final TextEditingController _radiusValue = TextEditingController();
+  File? _image=null;
 
+  final ImagePicker _picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('Không chọn ảnh');
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -111,10 +128,9 @@ class _WorkerState extends State<Worker> {
                     ],
                   ),
                 ),
-                TextButton.icon(
-                  onPressed: () {
-                
-                  }, 
+                 TextButton.icon(
+                  
+                  onPressed: getImage, 
                   icon: Container(
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -126,10 +142,13 @@ class _WorkerState extends State<Worker> {
                     ),
                     width: MediaQuery.of(context).size.width*0.4,
                     height: MediaQuery.of(context).size.height*0.25,
-                    child: Image.asset(
+                    child: _image == null? Image.asset(
                       'lib/assets/icons/user_picker.png',
                       fit: BoxFit.contain,
-                    )
+                    ):Image.file(
+                      _image!, 
+                      fit: BoxFit.contain
+                    ),
                   ), 
                   label: const Text(''),
                 ),
