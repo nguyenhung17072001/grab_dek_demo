@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grab_dek_demo/core/colors.dart';
 import 'package:grab_dek_demo/screens/homeowner_2.dart';
+import 'package:grab_dek_demo/widgets/info_field.dart';
 import 'package:grab_dek_demo/widgets/positionedCircle.dart';
 
 class Homeowner extends StatefulWidget {
@@ -115,54 +116,17 @@ class _HomeownerState extends State<Homeowner> {
                       height: 226,
                       width: 226,
                     ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                      child: TextField(
-                        controller: _ownerNameValue,
-                        decoration: const InputDecoration(
-                          labelText: 'Tên chủ nhà',
-                          labelStyle: TextStyle(
-                            fontFamily: 'Roboto-Regular',
-                            color: Color(0xff3B3B3B),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: AppColors.primaryColor,
-                          ),
-                          border: OutlineInputBorder(),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: AppColors.primaryColor),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xffE6E6E6))),
-                        ),
-                      ),
+                    InfoField(
+                      labelText: 'Tên chủ nhà',
+                      controller: _ownerNameValue,
+                      icon: Icons.person,
                     ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                      child: TextField(
-                        controller: _phoneValue,
-                        decoration: const InputDecoration(
-                          labelText: 'Số điện thoại',
-                          labelStyle: TextStyle(
-                            fontFamily: 'Roboto-Regular',
-                            color: Color(0xff3B3B3B),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.phone,
-                            color: AppColors.primaryColor,
-                          ),
-                          border: OutlineInputBorder(),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: AppColors.primaryColor),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xffE6E6E6))),
-                        ),
-                      ),
+                    InfoField(
+                      labelText: 'Số điện thoại',
+                      controller: _phoneValue,
+                      icon: Icons.phone,
                     ),
+                    
                     Container(
                       margin: const EdgeInsets.symmetric(
                                       vertical: 20.0),
