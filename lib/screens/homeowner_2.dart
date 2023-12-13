@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:grab_dek_demo/core/colors.dart';
 import 'package:grab_dek_demo/screens/host_map.dart';
-import 'package:grab_dek_demo/widget/positionedCircle.dart';
+import 'package:grab_dek_demo/widgets/positionedCircle.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Homeowner2 extends StatefulWidget {

@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:grab_dek_demo/models/worker.dart';
-import 'package:grab_dek_demo/widget/worker_details_modal.dart';
+import 'package:grab_dek_demo/widgets/worker_details_modal.dart';
 import 'package:marker_icon/marker_icon.dart';
 
 class WorkerMap extends StatefulWidget {

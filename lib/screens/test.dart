@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grab_dek_demo/core/colors.dart';
-import 'package:grab_dek_demo/widget/positionedCircle.dart';
+import 'package:grab_dek_demo/widgets/positionedCircle.dart';
 
 class Homeowner extends StatefulWidget {
   const Homeowner({Key? key}) : super(key: key);
