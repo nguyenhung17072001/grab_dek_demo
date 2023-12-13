@@ -7,7 +7,7 @@ class RadarWidget extends StatefulWidget {
 }
 
 class _RadarWidgetState extends State<RadarWidget>
-  with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -15,7 +15,7 @@ class _RadarWidgetState extends State<RadarWidget>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     )..repeat();
   }
 
@@ -27,36 +27,50 @@ class _RadarWidgetState extends State<RadarWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200.0,
-      height: 200.0,
+    return SizedBox(
+      width: 120.0,
+      height: 120.0,
       child: CustomPaint(
-        painter: RadarPainter(_controller.value),
+        painter: RadarPainter(_controller),
       ),
     );
   }
 }
 
 class RadarPainter extends CustomPainter {
-  final double animationValue;
+  final AnimationController animationController;
 
-  RadarPainter(this.animationValue);
+  RadarPainter(this.animationController) : super(repaint: animationController);
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final paint = Paint()
       ..color = Colors.blue.withOpacity(0.5)
-      ..style = PaintingStyle.stroke;
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.6;
 
-    final numberOfCircles = 6;
-    for (int i = 0; i < numberOfCircles; i++) {
-      canvas.drawCircle(
-        center,
-        size.width / numberOfCircles * (i + 1) * animationValue,
-        paint,
-      );
-    }
+    final radius = size.width / 3;
+
+    final sweepAngle = animationController.value * 2 * pi;
+
+    canvas.drawCircle(center, radius, paint);
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      -pi / 2,
+      sweepAngle,
+      false,
+      paint,
+    );
+
+    canvas.drawLine(
+      center,
+      Offset(
+        center.dx + cos(-pi / 2 + sweepAngle) * radius,
+        center.dy + sin(-pi / 2 + sweepAngle) * radius,
+      ),
+      paint..color = Colors.blue,
+    );
   }
 
   @override

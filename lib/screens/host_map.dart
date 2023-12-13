@@ -27,7 +27,10 @@ class HostMapState extends State<HostMap> {
   late double radarRadius = 0;
   double previousZoom = 0.0;
   bool agentsMarkersVisible = false;
-  
+  bool _showRadar = true;
+
+
+
   static const List<dynamic> wokers = [
     {"name": "Thợ 2", "lat": "21.014599", "lon": "105.851642"},
     {"name": "Thợ 3", "lat": "21.015922", "lon": "105.859339"},
@@ -63,9 +66,15 @@ class HostMapState extends State<HostMap> {
       zoom: 14,
     );
     _setRadarRadius();
-  
-
+    _setRadar();
     super.initState();
+  }
+  void _setRadar () {
+    Timer(Duration(milliseconds : 1500), () {
+      setState(() {
+        _showRadar = false;
+      });
+    });
   }
   void _setRadarRadius () {
     const double targetValue = 1000;
@@ -267,12 +276,11 @@ class HostMapState extends State<HostMap> {
             circles: _circles,
           ),
         ),
-        Positioned(
-            right: 30,
-            bottom: 20,
-            
-            child: RadarWidget(),
-          ),
+        if (_showRadar)
+            Positioned.fill(
+              child: RadarWidget(),
+            ),
+        
         ]
       ),
     );
