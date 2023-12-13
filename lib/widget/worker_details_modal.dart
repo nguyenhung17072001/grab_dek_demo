@@ -9,10 +9,7 @@ class WorkerDetailsModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10.0), 
-          topRight: Radius.circular(10.0), 
-        ),
+        
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

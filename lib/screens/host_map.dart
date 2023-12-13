@@ -167,6 +167,10 @@ class HostMapState extends State<HostMap> {
           ),
           onTap: () {
             showModalBottomSheet(
+              showDragHandle: true,
+              useSafeArea: true,
+              isDismissible: true,
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
               context: context,
               builder: (BuildContext context) {
                 return WorkerDetailsModal(
