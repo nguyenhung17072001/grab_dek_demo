@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:grab_dek_demo/models/worker.dart';
+import 'package:grab_dek_demo/widget/radar.dart';
 import 'package:grab_dek_demo/widget/worker_details_modal.dart';
 import 'package:marker_icon/marker_icon.dart';
 
@@ -221,48 +222,58 @@ class HostMapState extends State<HostMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: GoogleMap(
-          mapType: MapType.normal,
-          initialCameraPosition: _kGooglePlex,
-          onMapCreated: (GoogleMapController controller) async {
-            _controller.complete(controller);
-            _addHostMarker();
-            _addWorkerMarkers(wokers);
-            //_addAgentsMarkers(agents);
-            //_addCircle();
-            _addRadar();
-
-            
-
-            //_addWorkerMarkers(workers);
-           
-          },
-         
-          onCameraMove: (CameraPosition position) {
-            final double zoomLevel = position.zoom;
-            print('Độ zoom hiện tại: $zoomLevel');
-      
-            if ((previousZoom <= 14.5 && zoomLevel > 14.5) ||
-                (previousZoom > 14.5 && zoomLevel <= 14.5)) {
-              setState(() {
-                agentsMarkersVisible = zoomLevel > 14.5;
-              });
-
-              if (agentsMarkersVisible) {
-                _addAgentsMarkers(agents);
-              } else {
-                _markers.removeWhere((marker) => agents.any((agent) => marker.markerId.value == agent['name']));
-              }
-            }
-            previousZoom = zoomLevel;
-          },
+      body: Stack(
+        children: [
           
-          markers: _markers,
-          circles: _circles,
+          Positioned.fill(
+          
+          child: GoogleMap(
+            mapType: MapType.normal,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) async {
+              _controller.complete(controller);
+              _addHostMarker();
+              _addWorkerMarkers(wokers);
+              //_addAgentsMarkers(agents);
+              //_addCircle();
+              _addRadar();
+      
+              
+      
+              //_addWorkerMarkers(workers);
+             
+            },
+           
+            onCameraMove: (CameraPosition position) {
+              final double zoomLevel = position.zoom;
+              print('Độ zoom hiện tại: $zoomLevel');
+        
+              if ((previousZoom <= 14.5 && zoomLevel > 14.5) ||
+                  (previousZoom > 14.5 && zoomLevel <= 14.5)) {
+                setState(() {
+                  agentsMarkersVisible = zoomLevel > 14.5;
+                });
+      
+                if (agentsMarkersVisible) {
+                  _addAgentsMarkers(agents);
+                } else {
+                  _markers.removeWhere((marker) => agents.any((agent) => marker.markerId.value == agent['name']));
+                }
+              }
+              previousZoom = zoomLevel;
+            },
+            
+            markers: _markers,
+            circles: _circles,
+          ),
         ),
+        Positioned(
+            right: 30,
+            bottom: 20,
+            
+            child: RadarWidget(),
+          ),
+        ]
       ),
     );
   }
