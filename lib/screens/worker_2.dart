@@ -1,40 +1,69 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:grab_dek_demo/core/colors.dart';
-import 'package:grab_dek_demo/screens/Worker_2.dart';
 import 'package:grab_dek_demo/screens/homeowner_3.dart';
-//import 'package:grab_dek_demo/screens/Worker_2.dart';
+import 'package:grab_dek_demo/screens/host_map.dart';
 import 'package:grab_dek_demo/widgets/info_field.dart';
 import 'package:grab_dek_demo/widgets/positionedCircle.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Worker extends StatefulWidget {
-  const Worker({super.key});
+class Worker2 extends StatefulWidget {
+  const Worker2({super.key});
 
   @override
-  State<Worker> createState() => _WorkerState();
+  State<Worker2> createState() => _Worker2State();
 }
 
-class _WorkerState extends State<Worker> {
-  final TextEditingController _nameValue = TextEditingController();
-  final TextEditingController _phoneValue = TextEditingController();
-  final TextEditingController _radiusValue = TextEditingController();
-  File? _image=null;
-
+class _Worker2State extends State<Worker2> {
+  final TextEditingController _experienceValue = TextEditingController();
+  late Position _currentPosition;
+  late final List<File> _images = [];
   final ImagePicker _picker = ImagePicker();
 
+  @override
+  void initState() {
+    super.initState();
+    // Start listening to changes.
+    //_getCurrentLocation();
+
+  }
+
+  @override
+  void setState(VoidCallback fn) { 
+    super.setState(fn);
+    
+  }
+  void _getMap()  {
+      Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high).then((value) => {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HostMap(
+              latitude: value.latitude,
+              longitude: value.longitude,
+            )
+          ),
+        )
+      });
+    
+    
+    
+  }
   Future getImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
-        _image = File(pickedFile.path);
+        _images.add(File(pickedFile.path));
       } else {
         print('Không chọn ảnh');
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -87,7 +116,7 @@ class _WorkerState extends State<Worker> {
                   alignment: Alignment.center,
                   margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: const Text(
-                    'Thông tin cá nhân',
+                    'Chứng chỉ nghề nghiệp',
                     style: TextStyle(
                       fontFamily: 'Roboto-Regular',
                       fontSize: 14,
@@ -116,141 +145,96 @@ class _WorkerState extends State<Worker> {
                       Container(
                         height: 2,
                         width: 130,
-                        color: const Color(0xffE6E6E6),
+                        decoration: const BoxDecoration(
+                          //shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xffFFF100),
+                              Color(0xffFFB57E),
+                            ],
+                          ),
+                        ),
                       ),
                       Container(
                         height: 16,
                         width: 16,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color(0xffE6E6E6),
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xffFFF100),
+                              Color(0xffFFB57E),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                 TextButton.icon(
-                  
-                  onPressed: getImage, 
-                  icon: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: const Color(0xffE6E6E6),
-                        width: 1,
-                      ),
-                      //color: Colors.red,
-                      borderRadius: BorderRadius.circular(10.0), 
-                    ),
-                    width: MediaQuery.of(context).size.width*0.4,
-                    height: MediaQuery.of(context).size.height*0.25,
-                    child: _image == null? Image.asset(
-                      'lib/assets/icons/user_picker.png',
-                      fit: BoxFit.contain,
-                    ):Image.file(
-                      _image!, 
-                      fit: BoxFit.contain
-                    ),
-                  ), 
-                  label: const Text(''),
-                ),
                 InfoField(
-                  labelText: 'Họ và tên',
-                  controller: _nameValue,
-                  icon: Icons.person,
+                  controller: _experienceValue,
+                  labelText: 'Số năm kinh nghiệm',
+                  icon: Icons.business,
                 ),
-                InfoField(
-                  labelText: 'Số điện thoại',
-                  controller: _phoneValue,
-                  icon: Icons.phone,
-                ),
+                
                 Container(
                   margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                  alignment: AlignmentDirectional.centerStart,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                      color: const Color(0xffE6E6E6),
-                    ),
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
-                  child: TextButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Homeowner3()));
-                    },
-                    icon: const Icon(
-                      Icons.gps_fixed,
-                      color: AppColors.primaryColor,
-                    ),
-                    label: Container(
-                      margin: const EdgeInsets.fromLTRB(5, 10, 5, 10),
-                      width: double.infinity,
-                      child: const Text(
-                        'Địa chỉ hoạt động',
-                        style: TextStyle(
-                          fontFamily: 'Roboto-Regular',
-                          fontSize: 16,
-                          color: Color(0xff3B3B3B),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 4,
-                        child: Container(
-                          height: 60,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            controller: _radiusValue,
-                            decoration: const InputDecoration(
-                              labelText: 'Bán kính hoạt động',
-                              labelStyle:  TextStyle(
-                                fontFamily: 'Roboto-Regular',
-                                color: Color(0xff3B3B3B),
+                      const Text(
+                        'Chứng chỉ',
+                        style: TextStyle(
+                            color: Colors.black, fontFamily: 'Roboto-Regular'),
+                      ),
+                      SizedBox(
+                        height: _images.isNotEmpty ? 100 : 0,
+                        child: _images.isNotEmpty
+                            ? ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: _images.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SizedBox(
+                                      height: 100,
+                                      width: MediaQuery.of(context).size.width * 0.28,
+                                      child: Image.file(
+                                        _images[index],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              )
+                            : null,
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                          border: Border(),
+                          borderRadius: BorderRadius.horizontal(
+                            left: Radius.circular(8),
+                            right: Radius.circular(8),
+                          ),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.28,
+                        height: 100,
+                        child: TextButton(
+                          onPressed: getImage,
+                          style: ButtonStyle(
+                            side: MaterialStateProperty.all<BorderSide>(
+                              const BorderSide(
+                                color: Color(0xffE6E6E6),
+                                width: 1.0,
                               ),
-                              prefixIcon: Icon(
-                                Icons.location_searching,
-                                color: AppColors.primaryColor,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.zero)
-                              ),
-                              focusedBorder:  OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.primaryColor),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Color(0xffE6E6E6))),
                             ),
+                          ),
+                          child: const Icon(
+                            Icons.image,
+                            color: AppColors.primaryColor,
                           ),
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          
-                          decoration: const BoxDecoration(
-                            color: Color(0xffF0F0F0),
-                            borderRadius: BorderRadius.horizontal(
-                              left: Radius.circular(4),
-                              right: Radius.circular(4),
-                            
-                            ),
-                            
-                
-                        ),
-                        alignment: Alignment.center,
-                        height: 60,
-                        width: 100,
-                        child: const Text('Km', style: TextStyle(color: Color(0xffB8B8B8), fontSize: 14, fontFamily: 'Roboto-Regular'),),
-                      )
-                      )
                     ],
                   ),
                 ),
@@ -307,12 +291,7 @@ class _WorkerState extends State<Worker> {
                             ),
                           ),
                           child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Worker2()));
-                            },
+                            onPressed: _getMap,
                             style: ButtonStyle(
                               overlayColor: MaterialStateProperty.all<Color>(
                                 Colors.white,
@@ -324,7 +303,7 @@ class _WorkerState extends State<Worker> {
                                 padding: EdgeInsets.symmetric(vertical: 12.0),
                                 child: Center(
                                   child: Text(
-                                    'Tiếp tục',
+                                    'Tìm thợ',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
