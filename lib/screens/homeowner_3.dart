@@ -56,10 +56,9 @@ class _Homeowner3State extends State<Homeowner3> {
             ),
             Positioned.fill(
               child: ListView(children: [
-                
-                Text('hunzzzz'),
+              
                 Container(
-                  margin: const EdgeInsets.symmetric(vertical: 20.0),
+                  margin: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -99,17 +98,65 @@ class _Homeowner3State extends State<Homeowner3> {
                           margin: const EdgeInsets.symmetric(vertical: 20.0),
                           child: TextButton.icon(
                             onPressed: () {}, 
-                            icon: Center(
+                            icon: const Center(
                               //padding: EdgeInsets.all(2),
                               child: Icon(Icons.map, color: AppColors.primaryColor),
                             ),
-                            label: Text('')
+                            label: const Text('')
                           ),
                         ),
                       ),
                     ],
                   ),
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed: () {}, 
+                    icon: Container(
+                      color: const Color(0xffF8F8F8),
+                      child: const Icon(Icons.location_searching_sharp, color: AppColors.primaryColor,)
+                      ), 
+                    label: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: const Text(
+                            'Chọn vị trí của bạn hiện tại',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Roboto-Bold',
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: const Text(
+                            'Yên Hòa, Cầu Giấy Hà Nội',
+                            style: TextStyle(
+                              color: Color(0xff676767),
+                              fontFamily: 'Roboto-Regular',
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: const Text(
+                    'Địa điểm tìm kiếm gần đây',
+                    style: TextStyle(
+                      color: Color(0xff3B3B3B),
+                      fontFamily: 'Roboto-Bold',
+                      fontSize: 13,
+                    ),
+                  )
                 )
+                
               ]),
             )
           ],
