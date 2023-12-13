@@ -194,8 +194,8 @@ class HostMapState extends State<HostMap> {
           icon: await MarkerIcon.pictureAsset(
             assetPath:
                 'lib/assets/icons/agent.png', 
-            width: 80,
-            height: 80,
+            width: 140,
+            height: 140,
           ),
           infoWindow: InfoWindow(
             title: agent['name'],
