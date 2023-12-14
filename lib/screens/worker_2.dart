@@ -172,6 +172,7 @@ class _Worker2State extends State<Worker2> {
                   ),
                 ),
                 InfoField(
+                  keyboardType: TextInputType.number,
                   controller: _experienceValue,
                   labelText: 'Số năm kinh nghiệm',
                   icon: Icons.business,

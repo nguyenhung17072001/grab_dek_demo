@@ -125,6 +125,7 @@ class _HomeownerState extends State<Homeowner> {
                       labelText: 'Số điện thoại',
                       controller: _phoneValue,
                       icon: Icons.phone,
+                      keyboardType: TextInputType.number,
                     ),
                     
                     Container(

@@ -162,6 +162,7 @@ class _WorkerState extends State<Worker> {
                   labelText: 'Số điện thoại',
                   controller: _phoneValue,
                   icon: Icons.phone,
+                  keyboardType: TextInputType.number,
                 ),
                 Container(
                   margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),

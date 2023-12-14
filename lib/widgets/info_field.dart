@@ -5,12 +5,14 @@ class InfoField extends StatefulWidget {
   late TextEditingController? controller;
   late String? labelText;
   late IconData? icon;
+  late TextInputType? keyboardType;
 
   InfoField({
     super.key,  
     this.controller, 
     required this.labelText, 
-    this.icon
+    this.icon,
+    this.keyboardType,
   });
 
   @override
@@ -18,17 +20,18 @@ class InfoField extends StatefulWidget {
 }
 
 class _InfoFieldState extends State<InfoField> {
-  late TextEditingController _controller;
+  late TextEditingController? _controller;
   late String? _labelText;
   late IconData? _icon;
-  
+  late TextInputType? _keyboardType;
 
   @override
   void initState() {
-    _controller = widget.controller!;
+    _controller = widget.controller;
   
     _labelText = widget.labelText;
     _icon = widget.icon;
+    _keyboardType = widget.keyboardType;
     super.initState();
   }
 
@@ -38,6 +41,7 @@ class _InfoFieldState extends State<InfoField> {
       margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
       child: TextField(
         controller: _controller,
+        keyboardType: _keyboardType?? TextInputType.text,
         decoration: InputDecoration(
           labelText: _labelText,
           labelStyle: const TextStyle(
