@@ -52,7 +52,7 @@ class WorkerDetailsModal extends StatelessWidget {
                 const Row(
                   children: [
                     Text('Đánh giá: ', style: TextStyle(fontFamily: 'Roboto-Medium'),),
-                    Text("4.5/5", style: TextStyle(fontFamily: 'Roboto-Bold'),),
+                    Text("4.5/5 sao", style: TextStyle(fontFamily: 'Roboto-Bold'),),
                   ],
                 ),
                 Text('Các công trình đã thi công: ', style: TextStyle(fontFamily: 'Roboto-Medium'),),
