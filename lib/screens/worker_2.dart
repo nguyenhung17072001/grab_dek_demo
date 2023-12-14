@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:grab_dek_demo/core/colors.dart';
 import 'package:grab_dek_demo/screens/homeowner_3.dart';
 import 'package:grab_dek_demo/screens/host_map.dart';
+import 'package:grab_dek_demo/screens/worker_map.dart';
 import 'package:grab_dek_demo/widgets/info_field.dart';
 import 'package:grab_dek_demo/widgets/positionedCircle.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,6 +19,7 @@ class Worker2 extends StatefulWidget {
 
 class _Worker2State extends State<Worker2> {
   final TextEditingController _experienceValue = TextEditingController();
+  final TextEditingController _certificateValue = TextEditingController();
   late Position _currentPosition;
   late final List<File> _images = [];
   final ImagePicker _picker = ImagePicker();
@@ -41,7 +43,7 @@ class _Worker2State extends State<Worker2> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HostMap(
+            builder: (context) => WorkerMap(
               latitude: value.latitude,
               longitude: value.longitude,
             )
@@ -191,7 +193,7 @@ class _Worker2State extends State<Worker2> {
                     ),
                     InfoField(
                       keyboardType: TextInputType.text,
-                      controller: _experienceValue,
+                      controller: _certificateValue,
                       labelText: 'Tên chứng chỉ',
                       icon: Icons.business,
                     ),

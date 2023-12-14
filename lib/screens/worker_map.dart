@@ -82,8 +82,8 @@ class WorkerMapState extends State<WorkerMap> {
           height: 120,
         ),
         infoWindow: const InfoWindow(
-          title: "Chủ nhà",
-          snippet: "Chủ nhà đi tìm thợ",
+          title: "Thợ",
+          snippet: "Thợ đi chủ nhà",
         ),
       ),
     );
@@ -115,11 +115,10 @@ class WorkerMapState extends State<WorkerMap> {
             showModalBottomSheet(
               context: context,
               builder: (BuildContext context) {
-                return WorkerDetailsModal(
-                  name: worker['name'],
-                  snippet:
-                      "Các thông tin, thông số của thợ", 
+                return Container(
+                  child: Center(child: Text('Thông tin chủ nhà ${worker['name']}')),
                 );
+               
               },
             );
           },
