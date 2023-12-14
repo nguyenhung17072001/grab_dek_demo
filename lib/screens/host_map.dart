@@ -76,7 +76,7 @@ class HostMapState extends State<HostMap> {
     super.dispose();
   }
   void _setRadar () {
-    Timer(Duration(milliseconds : 2000), () {
+    Timer(Duration(milliseconds : 4000), () {
       setState(() {
         _showRadar = false;
       });
