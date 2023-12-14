@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:grab_dek_demo/core/colors.dart';
 import 'package:grab_dek_demo/models/worker.dart';
 import 'package:grab_dek_demo/widgets/radar.dart';
 import 'package:grab_dek_demo/widgets/worker_details_modal.dart';
@@ -70,7 +71,7 @@ class HostMapState extends State<HostMap> {
     super.initState();
   }
   void _setRadar () {
-    Timer(Duration(milliseconds : 1500), () {
+    Timer(Duration(milliseconds : 2000), () {
       setState(() {
         _showRadar = false;
       });
@@ -98,9 +99,9 @@ class HostMapState extends State<HostMap> {
                 circleId: const CircleId("radar"),
                 center: LatLng(_latitude, _longitude),
                 radius: radarRadius, 
-                fillColor: Colors.blue.withOpacity(0.1),
+                fillColor: AppColors.primaryColor.withOpacity(0.1),
                 strokeWidth: 1,
-                strokeColor: Colors.blue,
+                strokeColor: AppColors.primaryColor,
               ),
             );
           }
@@ -121,9 +122,9 @@ class HostMapState extends State<HostMap> {
         circleId: const CircleId("radar"),
         center: LatLng(_latitude, _longitude),
         radius: radarRadius, 
-        fillColor: Colors.blue.withOpacity(0.1),
+        fillColor: AppColors.primaryColor.withOpacity(0.1),
         strokeWidth: 1,
-        strokeColor: Colors.blue,
+        strokeColor: AppColors.primaryColor,
       ),
     );
     setState(() {

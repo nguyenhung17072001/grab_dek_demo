@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:grab_dek_demo/core/colors.dart';
 import 'package:grab_dek_demo/models/worker.dart';
 import 'package:grab_dek_demo/widgets/worker_details_modal.dart';
 import 'package:marker_icon/marker_icon.dart';
@@ -57,9 +58,9 @@ class WorkerMapState extends State<WorkerMap> {
         circleId: const CircleId("hostRadar"),
         center: LatLng(_latitude, _longitude),
         radius: radarRadius, 
-        fillColor: Colors.blue.withOpacity(0.1),
+        fillColor: AppColors.primaryColor.withOpacity(0.1),
         strokeWidth: 1,
-        strokeColor: Colors.blue,
+        strokeColor: AppColors.primaryColor,
       ),
     );
     setState(() {

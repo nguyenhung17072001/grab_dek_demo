@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:grab_dek_demo/core/colors.dart';
 
 class RadarWidget extends StatefulWidget {
   @override
@@ -46,7 +47,7 @@ class RadarPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final paint = Paint()
-      ..color = Colors.blue.withOpacity(0.5)
+      ..color = AppColors.primaryColor.withOpacity(0.5)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.6;
 
@@ -69,7 +70,7 @@ class RadarPainter extends CustomPainter {
         center.dx + cos(-pi / 2 + sweepAngle) * radius,
         center.dy + sin(-pi / 2 + sweepAngle) * radius,
       ),
-      paint..color = Colors.blue,
+      paint..color = AppColors.primaryColor,
     );
   }
 
