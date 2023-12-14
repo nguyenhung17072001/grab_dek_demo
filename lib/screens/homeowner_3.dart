@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:grab_dek_demo/core/colors.dart';
 import 'package:grab_dek_demo/widgets/info_field.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 import 'package:grab_dek_demo/widgets/positionedCircle.dart';
 
 class Homeowner3 extends StatefulWidget {
@@ -12,7 +15,53 @@ class Homeowner3 extends StatefulWidget {
 
 class _Homeowner3State extends State<Homeowner3> {
   final TextEditingController _addressValue = TextEditingController();
-  
+  late Position _currentPosition;
+  late String _currentAddress = '';
+
+
+
+  @override
+  void initState() {
+    _getCurrentLocation();
+    super.initState();
+  }
+  void _getCurrentLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    _currentPosition = position;
+    var url = Uri.https('nominatim.openstreetmap.org', '/reverse', {
+      'format': 'json',
+      'lat': position.latitude.toString(), // Chuyển latitude thành chuỗi
+      'lon': position.longitude.toString(), // Chuyển longitude thành chuỗi
+    });
+    var response = await http.get(url);
+    try {
+      if (response.statusCode == 200) {
+        var decodedBody =
+            convert.jsonDecode(response.body) as Map<String, dynamic>;
+
+        if (decodedBody.containsKey('address')) {
+          var addressData = decodedBody['address'] as Map<String, dynamic>;
+
+          // Accessing nested fields with proper error handling
+          String quarter = addressData['quarter'] ?? '';
+          String suburb = addressData['suburb'] ?? '';
+          String city = addressData['city'] ?? '';
+
+          setState(() {
+            _currentAddress = '$quarter, $suburb $city';
+          });
+          print('Address: ${_currentAddress}');
+        } else {
+          print('Address data not found in the response.');
+        }
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      print('sssssssssssssssssssssssss: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +161,11 @@ class _Homeowner3State extends State<Homeowner3> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: TextButton.icon(
-                    onPressed: () {}, 
+                    onPressed: () {
+                      setState(() {
+                        _addressValue.text = _currentAddress;
+                      });
+                    }, 
                     icon: Container(
                       color: const Color(0xffF8F8F8),
                       child: const Icon(Icons.location_searching_sharp, color: AppColors.primaryColor,)
@@ -132,8 +185,8 @@ class _Homeowner3State extends State<Homeowner3> {
                         ),
                         Container(
                           alignment: Alignment.centerLeft,
-                          child: const Text(
-                            'Yên Hòa, Cầu Giấy Hà Nội',
+                          child: Text(
+                            _currentAddress,
                             style: TextStyle(
                               color: Color(0xff676767),
                               fontFamily: 'Roboto-Regular',
