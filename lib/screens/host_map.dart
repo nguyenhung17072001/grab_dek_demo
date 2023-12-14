@@ -230,6 +230,34 @@ class HostMapState extends State<HostMap> {
     }
     setState(() {});
   }
+  void _addAgentsMarkers2(List<dynamic> agents) async {
+    for (var agent in agents) {
+      double lat = double.parse(agent['lat'].toString());
+      double lon = double.parse(agent['lon'].toString());
+
+      _markers.add(
+        Marker(
+          markerId: MarkerId('${agent['name']}2'),
+          position: LatLng(lat, lon),
+          icon: await MarkerIcon.pictureAsset(
+            assetPath:
+                'lib/assets/icons/agent_location.png', 
+            width: 80,
+            height: 80,
+          ),
+          infoWindow: InfoWindow(
+            title: agent['name'],
+            snippet:
+                "Worker's details here", 
+          ),
+          onTap: () {
+            
+          },
+        ),
+      );
+    }
+    setState(() {});
+  }
 
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
   
@@ -252,7 +280,7 @@ class HostMapState extends State<HostMap> {
               //_addAgentsMarkers(agents);
               //_addCircle();
               _addRadar();
-      
+              _addAgentsMarkers2(agents);
               
       
               //_addWorkerMarkers(workers);
@@ -262,16 +290,20 @@ class HostMapState extends State<HostMap> {
             onCameraMove: (CameraPosition position) {
               final double zoomLevel = position.zoom;
               print('Độ zoom hiện tại: $zoomLevel');
-        
+              print("zzzzzzz: $agentsMarkersVisible");
               if ((previousZoom <= 14.5 && zoomLevel > 14.5) ||
                   (previousZoom > 14.5 && zoomLevel <= 14.5)) {
                 setState(() {
                   agentsMarkersVisible = zoomLevel > 14.5;
                 });
+
+                
       
                 if (agentsMarkersVisible) {
                   _addAgentsMarkers(agents);
+                  _markers.removeWhere((marker) => agents.any((agent) => marker.markerId.value == '${agent['name']}2'));
                 } else {
+                  _addAgentsMarkers2(agents);
                   _markers.removeWhere((marker) => agents.any((agent) => marker.markerId.value == agent['name']));
                 }
               }
