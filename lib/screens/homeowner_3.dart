@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:grab_dek_demo/core/colors.dart';
+import 'package:grab_dek_demo/screens/find_location_map.dart';
 import 'package:grab_dek_demo/widgets/info_field.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
@@ -146,7 +147,14 @@ class _Homeowner3State extends State<Homeowner3> {
                           alignment: Alignment.center,
                           margin: const EdgeInsets.symmetric(vertical: 20.0),
                           child: TextButton.icon(
-                            onPressed: () {}, 
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LocationMap()
+                                )
+                              );
+                            }, 
                             icon: const Center(
                               //padding: EdgeInsets.all(2),
                               child: Icon(Icons.map, color: AppColors.primaryColor),

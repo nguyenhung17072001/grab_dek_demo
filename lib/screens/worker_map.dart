@@ -140,6 +140,7 @@ class WorkerMapState extends State<WorkerMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
