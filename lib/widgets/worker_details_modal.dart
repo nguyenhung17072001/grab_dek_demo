@@ -33,29 +33,55 @@ class WorkerDetailsModal extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text('Tên: ', style: TextStyle(fontFamily: 'Roboto-Bold'),),
-                    Text(name, style: TextStyle(fontFamily: 'Roboto-Medium'),),
+                    Text('Tên: ', style: TextStyle(fontFamily: 'Roboto-Medium'),),
+                    Text(name, style: TextStyle(fontFamily: 'Roboto-Bold'),),
                   ],
                 ),
                 const Row(
                   children: [
-                    Text('Địa chỉ: ', style: TextStyle(fontFamily: 'Roboto-Bold'),),
-                    Text("Phường A, Quận B, tp. Hà Nội", style: TextStyle(fontFamily: 'Roboto-Medium'),),
+                    Text('Địa chỉ: ', style: TextStyle(fontFamily: 'Roboto-Medium'),),
+                    Text("Phường A, Quận B, tp. Hà Nội", style: TextStyle(fontFamily: 'Roboto-Bold'),),
                   ],
                 ),
                 const Row(
                   children: [
-                    Text('Số năm kinh nghiệm: ', style: TextStyle(fontFamily: 'Roboto-Bold'),),
-                    Text("10", style: TextStyle(fontFamily: 'Roboto-Medium'),),
+                    Text('Số năm kinh nghiệm: ', style: TextStyle(fontFamily: 'Roboto-Medium'),),
+                    Text("10", style: TextStyle(fontFamily: 'Roboto-Bold'),),
                   ],
                 ),
                 const Row(
                   children: [
-                    Text('Đánh giá: ', style: TextStyle(fontFamily: 'Roboto-Bold'),),
-                    Text("4.5/5", style: TextStyle(fontFamily: 'Roboto-Medium'),),
+                    Text('Đánh giá: ', style: TextStyle(fontFamily: 'Roboto-Medium'),),
+                    Text("4.5/5", style: TextStyle(fontFamily: 'Roboto-Bold'),),
                   ],
                 ),
-
+                Text('Các công trình đã thi công: ', style: TextStyle(fontFamily: 'Roboto-Medium'),),
+                SizedBox(
+                  height: 100,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        height: 100,
+                        width: 100,
+                        child: Image.asset(
+                          'lib/assets/images/construction1.jpg',
+                          fit: BoxFit.contain,
+                        )
+                      ),
+                      SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: Image.asset(
+                          'lib/assets/images/construction2.jpg',
+                          fit: BoxFit.contain,
+                        )
+                      ),
+                      
+                    ],
+                  ),
+                )
                 //Text(snippet!),
               ],
             ),
