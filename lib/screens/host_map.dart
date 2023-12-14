@@ -70,6 +70,11 @@ class HostMapState extends State<HostMap> {
     _setRadar();
     super.initState();
   }
+  @override
+  void dispose() {
+  
+    super.dispose();
+  }
   void _setRadar () {
     Timer(Duration(milliseconds : 2000), () {
       setState(() {
@@ -227,7 +232,7 @@ class HostMapState extends State<HostMap> {
   }
 
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
-
+  
 
   @override
   Widget build(BuildContext context) {

@@ -23,6 +23,9 @@ class _Homeowner2State extends State<Homeowner2> {
   late final List<File> _images = [];
   final ImagePicker _picker = ImagePicker();
 
+
+
+
   @override
   void initState() {
     super.initState();
@@ -37,18 +40,20 @@ class _Homeowner2State extends State<Homeowner2> {
     
   }
   void _getMap()  {
-      Geolocator.getCurrentPosition(
+    
+    Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high).then((value) => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HostMap(
-              latitude: value.latitude,
-              longitude: value.longitude,
-            )
-          ),
-        )
-      });
+      
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HostMap(
+            latitude: value.latitude,
+            longitude: value.longitude,
+          )
+        ),
+      )
+    });
     
     
     
@@ -359,7 +364,8 @@ class _Homeowner2State extends State<Homeowner2> {
                   ),
                 )
               ]),
-            )
+            ),
+            
           ],
         ),
       ),
