@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:grab_dek_demo/core/colors.dart';
 
 class LocationMap extends StatefulWidget {
   const LocationMap({super.key});
@@ -12,8 +13,10 @@ class LocationMap extends StatefulWidget {
 }
 
 class _LocationMapState extends State<LocationMap> {
-  late CameraPosition _kGooglePlex = 
-    CameraPosition(target: LatLng(0, 0));
+  late CameraPosition _kGooglePlex = CameraPosition(
+    zoom: 16,
+    target: LatLng(21.07897972618073, 105.76329371732743)
+  );
 
 
   
@@ -26,6 +29,24 @@ class _LocationMapState extends State<LocationMap> {
     //_getLocation();
     super.initState();
     _goCurrentPosition();
+  }
+  void _addCircle() {
+    
+  
+    _circles.add(
+      Circle(
+        circleId: const CircleId("CurrentCircle"),
+        center: LatLng(21.07897972618073, 105.76329371732743),
+        radius: 20, 
+        fillColor: Colors.blue.withOpacity(0.3),
+        strokeWidth: 1,
+        strokeColor: Colors.blue,
+      ),
+    );
+    setState(() {
+      
+    });
+     
   }
 
   final Completer<GoogleMapController> _controller =
@@ -69,7 +90,7 @@ class _LocationMapState extends State<LocationMap> {
           
           onMapCreated: (GoogleMapController controller) async {
             //_goCurrentPosition();
-
+            _addCircle();
 
           },
           markers: _markers,

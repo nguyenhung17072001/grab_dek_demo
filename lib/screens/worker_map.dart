@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:grab_dek_demo/core/colors.dart';
 import 'package:grab_dek_demo/models/worker.dart';
+import 'package:grab_dek_demo/widgets/radar.dart';
 import 'package:grab_dek_demo/widgets/worker_details_modal.dart';
 import 'package:marker_icon/marker_icon.dart';
 
@@ -24,6 +25,10 @@ class WorkerMapState extends State<WorkerMap> {
   late double _longitude;
   late CameraPosition _kGooglePlex;
   late BitmapDescriptor hostIcon;
+  late double radarRadius = 0;
+  bool _showRadar = true;
+
+
 
   static const List<dynamic> wokers = [
     {"name": "Chủ nhà 2", "lat": "21.014599", "lon": "105.851642"},
@@ -45,10 +50,37 @@ class WorkerMapState extends State<WorkerMap> {
     _longitude = widget.longitude;
     _kGooglePlex = CameraPosition(
       target: LatLng(_latitude, _longitude),
-      zoom: 15,
+      zoom: 14.5,
     );
-
+    //_setRadarRadius();
+    _setRadar();
     super.initState();
+  }
+
+  void _setRadar () {
+    Timer(Duration(milliseconds : 4000), () {
+      setState(() {
+        _showRadar = false;
+      });
+    });
+  }
+  void _addRadar() {
+    
+  
+    _circles.add(
+      Circle(
+        circleId: const CircleId("radar"),
+        center: LatLng(_latitude, _longitude),
+        radius: radarRadius, 
+        fillColor: AppColors.primaryColor.withOpacity(0.1),
+        strokeWidth: 1,
+        strokeColor: AppColors.primaryColor,
+      ),
+    );
+    setState(() {
+      
+    });
+     
   }
 
   void _addCircle() {
@@ -134,31 +166,39 @@ class WorkerMapState extends State<WorkerMap> {
   static const CameraPosition _kLake = CameraPosition(
     bearing: 192.8334901395799,
     target: LatLng(37.43296265331129, -122.08832357078792),
-    zoom: 19.151926040649414,
+    zoom: 14,
   );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: GoogleMap(
-          mapType: MapType.normal,
-          initialCameraPosition: _kGooglePlex,
-          onMapCreated: (GoogleMapController controller) async {
-            _controller.complete(controller);
-            _addHostMarker();
-            _addWorkerMarkers(wokers);
-            _addCircle();
-   
-
-            //_addWorkerMarkers(workers);
-          },
-          markers: _markers,
-          circles: _circles,
+      body: Stack(
+        
+        children: [
+          Positioned.fill(
+          child: GoogleMap(
+            mapType: MapType.normal,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) async {
+              _controller.complete(controller);
+              _addHostMarker();
+              _addWorkerMarkers(wokers);
+              _addCircle();
+              _addRadar();
+        
+        
+              //_addWorkerMarkers(workers);
+            },
+            markers: _markers,
+            circles: _circles,
+          ),
         ),
+        if (_showRadar)
+            Positioned.fill(
+              child: RadarWidget(),
+            ),
+        ]
       ),
     );
   }
