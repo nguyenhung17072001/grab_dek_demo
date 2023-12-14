@@ -237,7 +237,7 @@ class HostMapState extends State<HostMap> {
 
       _markers.add(
         Marker(
-          markerId: MarkerId('${agent['name']}2'),
+          markerId: MarkerId(agent['name']),
           position: LatLng(lat, lon),
           icon: await MarkerIcon.pictureAsset(
             assetPath:
@@ -301,10 +301,10 @@ class HostMapState extends State<HostMap> {
       
                 if (agentsMarkersVisible) {
                   _addAgentsMarkers(agents);
-                  _markers.removeWhere((marker) => agents.any((agent) => marker.markerId.value == '${agent['name']}2'));
+                  //_markers.removeWhere((marker) => agents.any((agent) => marker.markerId.value == '${agent['name']}2'));
                 } else {
                   _addAgentsMarkers2(agents);
-                  _markers.removeWhere((marker) => agents.any((agent) => marker.markerId.value == agent['name']));
+                  //_markers.removeWhere((marker) => agents.any((agent) => marker.markerId.value == agent['name']));
                 }
               }
               previousZoom = zoomLevel;
