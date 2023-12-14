@@ -178,66 +178,74 @@ class _Worker2State extends State<Worker2> {
                   icon: Icons.business,
                 ),
                 
-                Container(
-                  margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+                      child: const Text(
                         'Chứng chỉ',
                         style: TextStyle(
                             color: Colors.black, fontFamily: 'Roboto-Regular'),
                       ),
-                      SizedBox(
-                        height: _images.isNotEmpty ? 100 : 0,
-                        child: _images.isNotEmpty
-                            ? ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: _images.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SizedBox(
-                                      height: 100,
-                                      width: MediaQuery.of(context).size.width * 0.28,
-                                      child: Image.file(
-                                        _images[index],
-                                        fit: BoxFit.cover,
-                                      ),
+                    ),
+                    InfoField(
+                      keyboardType: TextInputType.text,
+                      controller: _experienceValue,
+                      labelText: 'Tên chứng chỉ',
+                      icon: Icons.business,
+                    ),
+                    Container(
+                      //margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+                      height: _images.isNotEmpty ? 100 : 0,
+                      child: _images.isNotEmpty
+                          ? ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: _images.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                    height: 100,
+                                    width: MediaQuery.of(context).size.width * 0.28,
+                                    child: Image.file(
+                                      _images[index],
+                                      fit: BoxFit.cover,
                                     ),
-                                  );
-                                },
-                              )
-                            : null,
-                      ),
-                      Container(
-                        decoration: const BoxDecoration(
-                          border: Border(),
-                          borderRadius: BorderRadius.horizontal(
-                            left: Radius.circular(8),
-                            right: Radius.circular(8),
-                          ),
+                                  ),
+                                );
+                              },
+                            )
+                          : null,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                      decoration: const BoxDecoration(
+                        border: Border(),
+                        borderRadius: BorderRadius.horizontal(
+                          left: Radius.circular(8),
+                          right: Radius.circular(8),
                         ),
-                        width: MediaQuery.of(context).size.width * 0.28,
-                        height: 100,
-                        child: TextButton(
-                          onPressed: getImage,
-                          style: ButtonStyle(
-                            side: MaterialStateProperty.all<BorderSide>(
-                              const BorderSide(
-                                color: Color(0xffE6E6E6),
-                                width: 1.0,
-                              ),
+                      ),
+                      width: MediaQuery.of(context).size.width * 0.28,
+                      height: 100,
+                      child: TextButton(
+                        onPressed: getImage,
+                        style: ButtonStyle(
+                          side: MaterialStateProperty.all<BorderSide>(
+                            const BorderSide(
+                              color: Color(0xffE6E6E6),
+                              width: 1.0,
                             ),
                           ),
-                          child: const Icon(
-                            Icons.image,
-                            color: AppColors.primaryColor,
-                          ),
+                        ),
+                        child: const Icon(
+                          Icons.image,
+                          color: AppColors.primaryColor,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 20.0),
@@ -304,7 +312,7 @@ class _Worker2State extends State<Worker2> {
                                 padding: EdgeInsets.symmetric(vertical: 12.0),
                                 child: Center(
                                   child: Text(
-                                    'Tìm thợ',
+                                    'Tiếp tục',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
