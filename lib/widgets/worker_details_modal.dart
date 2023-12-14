@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grab_dek_demo/widgets/image_view.dart';
 class WorkerDetailsModal extends StatelessWidget {
   final String name;
   final String ?snippet;
@@ -65,19 +66,43 @@ class WorkerDetailsModal extends StatelessWidget {
                         margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
                         height: 100,
                         width: 100,
-                        child: Image.asset(
-                          'lib/assets/images/construction1.jpg',
-                          fit: BoxFit.contain,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context) => ImageView(asset: 'lib/assets/images/construction1.jpg')
+                            )
+                            );
+                            
+                          },
+                          child: Image.asset(
+                            'lib/assets/images/construction1.jpg',
+                            fit: BoxFit.contain,
+                          ),
                         )
                       ),
-                      SizedBox(
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
                         height: 100,
                         width: 100,
-                        child: Image.asset(
-                          'lib/assets/images/construction2.jpg',
-                          fit: BoxFit.contain,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context) => ImageView(asset: 'lib/assets/images/construction2.jpg')
+                            )
+                            );
+                            
+                          },
+                          child: Image.asset(
+                            'lib/assets/images/construction2.jpg',
+                            fit: BoxFit.contain,
+                          ),
                         )
                       ),
+                      
                       
                     ],
                   ),
