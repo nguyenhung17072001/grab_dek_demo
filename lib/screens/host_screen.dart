@@ -28,7 +28,7 @@ class _HostScreenState extends State<HostScreen> {
   @override
   void initState() {
     super.initState();
-    // Start listening to changes.
+    
     _getCurrentLocation();
 
     _addressValue.addListener(_printLatestValue);
@@ -40,8 +40,8 @@ class _HostScreenState extends State<HostScreen> {
     _currentPosition = position;
     var url = Uri.https('nominatim.openstreetmap.org', '/reverse', {
       'format': 'json',
-      'lat': position.latitude.toString(), // Chuyển latitude thành chuỗi
-      'lon': position.longitude.toString(), // Chuyển longitude thành chuỗi
+      'lat': position.latitude.toString(), 
+      'lon': position.longitude.toString(),
     });
     var response = await http.get(url);
     try {
@@ -52,7 +52,7 @@ class _HostScreenState extends State<HostScreen> {
         if (decodedBody.containsKey('address')) {
           var addressData = decodedBody['address'] as Map<String, dynamic>;
 
-          // Accessing nested fields with proper error handling
+          
           String quarter = addressData['quarter'] ?? '';
           String suburb = addressData['suburb'] ?? '';
           String city = addressData['city'] ?? '';
@@ -106,7 +106,7 @@ class _HostScreenState extends State<HostScreen> {
         title: const Text('Chủ nhà'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: getImage, // Gọi hàm để chọn ảnh
+        onPressed: getImage,
         tooltip: 'Chọn ảnh',
         child: const Icon(Icons.add_a_photo),
       ),

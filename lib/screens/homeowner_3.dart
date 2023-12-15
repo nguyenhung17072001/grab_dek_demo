@@ -32,8 +32,8 @@ class _Homeowner3State extends State<Homeowner3> {
     _currentPosition = position;
     var url = Uri.https('nominatim.openstreetmap.org', '/reverse', {
       'format': 'json',
-      'lat': position.latitude.toString(), // Chuyển latitude thành chuỗi
-      'lon': position.longitude.toString(), // Chuyển longitude thành chuỗi
+      'lat': position.latitude.toString(), 
+      'lon': position.longitude.toString(),
     });
     var response = await http.get(url);
     try {
@@ -44,7 +44,7 @@ class _Homeowner3State extends State<Homeowner3> {
         if (decodedBody.containsKey('address')) {
           var addressData = decodedBody['address'] as Map<String, dynamic>;
 
-          // Accessing nested fields with proper error handling
+          
           String quarter = addressData['quarter'] ?? '';
           String suburb = addressData['suburb'] ?? '';
           String city = addressData['city'] ?? '';

@@ -29,7 +29,7 @@ class _WorkerScreenState extends State<WorkerScreen> {
   @override
   void initState() {
     super.initState();
-    // Start listening to changes.
+    
     _getCurrentLocation();
 
     _addressValue.addListener(_printLatestValue);
@@ -41,8 +41,8 @@ class _WorkerScreenState extends State<WorkerScreen> {
     _currentPosition = position;
     var url = Uri.https('nominatim.openstreetmap.org', '/reverse', {
       'format': 'json',
-      'lat': position.latitude.toString(), // Chuyển latitude thành chuỗi
-      'lon': position.longitude.toString(), // Chuyển longitude thành chuỗi
+      'lat': position.latitude.toString(), 
+      'lon': position.longitude.toString(),
     });
     var response = await http.get(url);
     try {
